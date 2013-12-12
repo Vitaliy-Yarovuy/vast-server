@@ -1,0 +1,129 @@
+extends layout
+
+block content
+  script!= 'window.pointID ="'+id+'";'
+
+  .row(ng-controller='PointCtrl')
+    .col-md-6
+      h2 settings
+
+      ul.nav.nav-tabs
+        li.active
+          a(href="#vast-inline", data-toggle="tab") vast inline
+        li
+          a(href="#vast-wrapper-1", data-toggle="tab") vast wrapper 1
+        li
+          a(href="#vast-wrapper-2", data-toggle="tab") vast wrapper 2
+      .tab-content
+        .tab-pane.active(id="vast-inline")
+          br
+          fieldset
+            legend InLine
+            .row
+              .col-md-6
+                .form-group
+                  label( for="AdSystem") AdSystem
+                  input.form-control#AdSystem( type="text", value="AdFox.Ru")
+              .col-md-6
+                .form-group
+                  label( for="AdTitle") AdTitle
+                  input.form-control#AdTitle( type="text", value="GPMD")
+            fieldset
+              legend Creative
+              .form-group
+                label( for="Duration") Duration
+                input.form-control#Duration( type="number", value="0")
+
+
+        .tab-pane(id="vast-wrapper-1")
+        .tab-pane(id="vast-wrapper-2")
+
+      hr
+      h2
+        span statistic
+        &nbsp;
+        span.btn.btn-xs.btn-warning clear
+
+      table.table#vast-statistic
+        thead
+          tr
+            th event\vast file
+            th inline
+            th wrapper 1
+            th wrapper 2
+        tbody
+          tr
+            th load
+            td
+              .label.label-primary 0
+              br
+              span -- -- -- --:--:--
+            td
+              .label.label-primary 0
+              br
+              span -- -- -- --:--:--
+            td
+              .label.label-primary 0
+              br
+              span -- -- -- --:--:--
+          tr
+            th Impression
+            td
+              .label.label-primary 0
+              br
+              span -- -- -- --:--:--
+            td
+              .label.label-primary 0
+              br
+              span -- -- -- --:--:--
+            td
+              .label.label-primary 0
+              br
+              span -- -- -- --:--:--
+
+    .col-md-6
+      h2 view
+
+      ul.nav.nav-tabs
+        li.active
+          a(href="#vast-inline", data-toggle="tab") vast inline
+        li
+          a(href="#vast-wrapper-1", data-toggle="tab") vast wrapper 1
+        li
+          a(href="#vast-wrapper-2", data-toggle="tab") vast wrapper 2
+
+      .tab-content
+        .tab-pane.active(id="vast-inline")
+          br
+          .input-group.input-group-sx
+            input(type="text", class="form-control", value="http://127.0.0.1:3000/")
+            span.input-group-btn
+              a.btn.btn-default(type="button",href="#", target="_blank") open
+          br
+          pre.code= '<?xml version="1.0"?>\n<nobanner></nobanner>'
+
+
+
+        .tab-pane(id="vast-wrapper-1")
+          br
+          .input-group.input-group-sx
+            input(type="text", class="form-control", value="http://127.0.0.1:3000/")
+            span.input-group-btn
+              a.btn.btn-default(type="button",href="#", target="_blank") open
+          br
+          pre.code= '<?xml version="1.0"?>\n<nobanner></nobanner>'
+
+
+        .tab-pane(id="vast-wrapper-2")
+          br
+          .input-group.input-group-sm
+            input(type="text", class="form-control", value="http://127.0.0.1:3000/")
+            span.input-group-btn
+              a.btn.btn-default(type="button",href="#", target="_blank") open
+          br
+          pre.code= '<?xml version="1.0"?>\n<nobanner></nobanner>'
+
+
+
+block scripts
+  script(src="/js/point/app.js")

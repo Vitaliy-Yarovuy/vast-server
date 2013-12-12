@@ -1,0 +1,23 @@
+.navbar .label {
+  display: inline-block;
+  margin: 0 0 2px 5px;
+  vertical-align: middle;
+}
+.test-point-list li {
+  float: left;
+  margin-right: 35px;
+  margin-bottom: 20px;
+}
+.test-point-list li a.btn {
+  min-width: 135px;
+}
+#vast-statistic th,
+#vast-statistic td {
+  vertical-align: middle;
+}
+#vast-statistic thead th:not(:first-child) {
+  text-align: center;
+}
+#vast-statistic td {
+  text-align: center;
+}
