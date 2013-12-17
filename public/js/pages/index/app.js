@@ -3,15 +3,15 @@
     var app = angular.module('App',[]).controller('PointListCtrl',function($scope, socket, $timeout) {
         $scope.pointId = "";
         $scope.pointList = [];
-        socket.emit("list:get",{},function(data){
-            $scope.pointList = data.list;
+        socket.emit("testPoints::find",{},function(err, list){
+            $scope.pointList = list;
         });
-        socket.on("list:add",function(data){
-            data.item.isNew = true;
+        socket.on("testPoints created",function(item){
+            item.isNew = true;
             $timeout(function() {
-                data.item.isNew = false;
+                item.isNew = false;
             },3000);
-            $scope.pointList.push(data.item);
+            $scope.pointList.push(item);
         });
         $scope.go = function(){
             var pointId = $scope.pointId.trim();

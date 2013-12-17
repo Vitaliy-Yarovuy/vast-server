@@ -1,3 +1,5 @@
+var vast20 = require("./vast20");
+
 
 function TestPoint(id){
     this.id = id;

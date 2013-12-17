@@ -3,12 +3,12 @@
     var app = angular.module('App',[]).controller('PointCtrl',function($scope, socket) {
         $scope.point = {};
         $scope.pointId = window.pointID;
-        socket.emit("point:get",{id:$scope.pointId},function(data){
-            $scope.point = data.point;
+        socket.emit("testPoints::get", $scope.pointId, function(err, point){
+            $scope.point = point;
         });
 
         var $text = $(".navbar .navbar-text");
-        var html = $text.html().replace('"'+window.pointID+'"', " <span class='label label-success'> "+window.pointID+" </span>" );
+        var html = $text.html().replace('"'+$scope.pointId+'"', " <span class='label label-success'> "+$scope.pointId+" </span>" );
         $text.html(html);
     });
 
