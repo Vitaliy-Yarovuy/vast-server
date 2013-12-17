@@ -5,9 +5,10 @@ var _ = require("lodash");
 function InLine(settings) {
     this.settings = _.merge({
         AdSystem: "",
+        version:null,
         AdTitle: "",
-        Description: "",
-        Survey: ""
+        Description: null,
+        Survey: null
     }, settings);
     this.creatives = [];
     this.extensions = [];

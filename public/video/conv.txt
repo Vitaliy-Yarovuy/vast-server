@@ -1,0 +1,4 @@
+flv
+ffmpeg  -i v.mp4 -ar 44100 -ab 96 -f flv  v.flv
+else
+avconv  -i v.mp4  v.webm

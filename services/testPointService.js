@@ -9,7 +9,7 @@ function TestPointService() {
 TestPointService.prototype.create = function (data, params, callback) {
     var id = data.id, point = new TestPoint(id);
     this.testPoints[id] = point;
-    callback(null, point.toJSON());
+    callback(null, point);
 };
 
 
@@ -17,7 +17,7 @@ TestPointService.prototype.get = function (id, callback) {
     if (!this.testPoints[id]) {
         this.create({id:id},{},function(){});
     }
-    callback(null, this.testPoints[id].toJSON());
+    callback(null, this.testPoints[id]);
 };
 
 TestPointService.prototype.find = function (params, callback) {
@@ -27,9 +27,7 @@ TestPointService.prototype.find = function (params, callback) {
             list.push(this.testPoints[key]);
         }
     }
-    callback(null, list.map(function(point){
-        return point.toJSON();
-    }));
+    callback(null, list);
 };
 
 
