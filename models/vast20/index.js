@@ -5,4 +5,4 @@ exports.Creative = require("./creative").Creative;
 exports.Linear = require("./linear").Linear;
 exports.VideoClicks = require("./videoclicks").VideoClicks;
 exports.MediaFile = require("./mediafile").MediaFile;
-exports.Tracking = require("./tracking").Tracking;
+exports.TrackingEvents = require("./trackingevents").TrackingEvents;

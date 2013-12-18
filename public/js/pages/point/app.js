@@ -5,6 +5,7 @@
         $scope.pointId = window.pointID;
         socket.emit("testPoints::get", $scope.pointId, function(err, point){
             $scope.point = point;
+            window.select_point = point;
         });
 
         var $text = $(".navbar .navbar-text");

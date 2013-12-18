@@ -2,29 +2,162 @@ extends layout
 
 block content
   script!= 'window.pointID ="'+id+'";'
+  script!= 'window.vildeoLists = '+JSON.stringify(videoLists)+';'
 
   .row(ng-controller='PointCtrl')
     .col-md-6
       h2 settings
 
       ul.nav.nav-tabs
-        li.active
-          a(href="#vast-inline", data-toggle="tab") vast inline
-        li
-          a(href="#vast-wrapper-1", data-toggle="tab") vast wrapper 1
-        li
-          a(href="#vast-wrapper-2", data-toggle="tab") vast wrapper 2
+        li(ng-repeat="(vastKey,vast) in point.vasts", class="{{$index==0?'active':''}}")
+            a(href="#{{vastKey}}", data-toggle="tab") {{vastKey}}
       .tab-content
-        .tab-pane.active(id="vast-inline")
+        div(ng-repeat="(vastKey,vast) in point.vasts", id="{{vastKey}}",class="tab-pane {{$index==0?'active':''}}")
+          br
+          fieldset
+            legend VAST:
+            .row
+              .col-xs-6
+                .form-group
+                   label( for="vast_id") vast id
+                   input.form-control.input-sm#vast_id( type="text", ng-model="vast.settings.id")
+            fieldset(ng-if="vast.inLine")
+              legend InLine:
+              .row
+                .col-xs-4
+                  .form-group
+                    label( for="inLine_AdSystem") AdSystem
+                    input.form-control.input-sm#inLine_AdSystem( type="text", ng-model="vast.inLine.settings.AdSystem")
+                  .form-group
+                    label( for="inLine_version") version
+                    input.form-control.input-sm#inLine_version( type="text", ng-model="vast.inLine.settings.version")
+                .col-xs-4
+                  .form-group
+                    label( for="inLine_AdTitle") AdTitle
+                    input.form-control.input-sm#inLine_AdTitle( type="text", ng-model="vast.inLine.settings.AdTitle")
+                  .form-group
+                    label( for="inLine_Description") Description
+                    input.form-control.input-sm#inLine_Description( type="text", ng-model="vast.inLine.settings.Description")
+                .col-xs-4
+                  .form-group
+                    label( for="inLine_Survey") Survey
+                    input.form-control.input-sm#inLine_Survey( type="text", ng-model="vast.inLine.settings.Survey")
+
+              fieldset(ng-if="vast.inLine")
+                legend Creatives:
+
+                table.table.table-hover.td-pos-r
+                  tr
+                    th #
+                    th(width="98%") Creative...
+                    th(width="0")
+                      span.pos-a.tr-5 action
+                  tr(ng-repeat="creative in vast.inLine.creatives")
+                    td {{$index+1}}
+                    td
+                      .row
+                        .col-xs-4
+                          .form-group
+                            label( for="creative_id") id
+                            input.form-control.input-sm#creative_id( type="text", ng-model="creative.settings.id")
+                        .col-xs-4
+                          .form-group
+                            label( for="creative_sequence") sequence
+                            input.form-control.input-sm#creative_sequence( type="text", ng-model="creative.settings.sequence")
+                        .col-xs-4
+                          .form-group
+                            label( for="creative_AdID") AdID
+                            input.form-control.input-sm#creative_AdID( type="text", ng-model="creative.settings.AdID")
+
+                      fieldset(ng-if="creative.linear")
+                        legend.sm Linear:
+                        .row
+                          .col-xs-6
+                            .form-group
+                              label( for="linear_Duration") Duration
+                              input.form-control.input-sm#linear_Duration( type="text", ng-model="creative.linear.settings.Duration")
+                          .col-xs-6
+                            .form-group
+                              label( for="linear_AdParameters") AdParameters
+                              input.form-control.input-sm#linear_AdParameters( type="text", ng-model="vast.inLine.settings.AdParameters")
+
+                        .row
+                          .col-xs-4
+                            fieldset(ng-if="creative.linear.videoClicks")
+                              legend.sm VideoClicks:
+                              div
+                                .checkbox(ng-repeat="(key,set) in creative.linear.videoClicks.settings" )
+                                  label
+                                    input(type="checkbox", ng-model="set")
+                                    | {{key}}
+                          .col-xs-8
+                            fieldset(ng-if="creative.linear.trackingEvents",style="margin-top:11px;")
+                              legend.sm TrackingEvents:
+                              div.col-c-2
+                                .checkbox(ng-repeat="(key,set) in creative.linear.trackingEvents.settings" )
+                                  label
+                                    input(type="checkbox", ng-model="set")
+                                    | {{key}}
+
+                      fieldset
+                        legend.sm MediaFiles:
+
+                        table.table.table-hover.td-pos-r
+                          tr
+                            th #
+                            th(width="98%") MediaFile...
+                            th(width="0")
+                              span.pos-a.tr-5 action
+                          tr(ng-repeat="mediaFile in creative.linear.mediaFiles")
+                            td {{$index+1}}
+                            td
+                              .row
+                                .col-xs-6
+                                  .form-group
+                                    label( for="mediaFile_id") id
+                                    input.form-control.input-sm#mediaFile_id( type="text", ng-model="mediaFile.settings.id")
+                                  .form-group
+                                    label( for="mediaFile_delivery") delivery
+                                    input.form-control.input-sm#mediaFile_delivery( type="text", ng-model="mediaFile.settings.delivery.")
+
+                                  .checkbox
+                                    label
+                                      input(type="checkbox", ng-model="mediaFile.settings.scalable")
+                                      | scalable
+                                .col-xs-6
+                                  .form-group
+                                    label( for="mediaFile_maintainAspectRatio") maintainAspectRatio
+                                    input.form-control.input-sm#mediaFile_maintainAspectRatio( type="text", ng-model="mediaFile.settings.maintainAspectRatio")
+                                  .form-group
+                                    label( for="mediaFile_apiFramework") apiFramework
+                                    input.form-control.input-sm#mediaFile_apiFramework( type="text", ng-model="mediaFile.settings.apiFramework")
+
+                            td
+                              button.btn.btn-xs.btn-danger.pos-a.tr-5(disabled=true) remove
+                          tr
+                            td.text-center(colspan="3")
+                              .btn.btn-sm.btn-success(disabled=true) add
+
+
+
+                    td
+                      button.btn.btn-xs.btn-danger.pos-a.tr-5(disabled=true) remove
+                  tr
+                    td.text-center(colspan="3")
+                      .btn.btn-sm.btn-success(disabled=true) add
+
+
+
+        //.tab-pane.active(id="vast-inline")
           br
           fieldset
             legend InLine
             .row
-              .col-md-6
+              .col-xs-6
                 .form-group
                   label( for="AdSystem") AdSystem
                   input.form-control#AdSystem( type="text", value="AdFox.Ru")
-              .col-md-6
+              .col-xs-6
                 .form-group
                   label( for="AdTitle") AdTitle
                   input.form-control#AdTitle( type="text", value="GPMD")
@@ -35,8 +168,8 @@ block content
                 input.form-control#Duration( type="number", value="0")
 
 
-        .tab-pane(id="vast-wrapper-1")
-        .tab-pane(id="vast-wrapper-2")
+        //.tab-pane(id="vast-wrapper-1")
+        //.tab-pane(id="vast-wrapper-2")
 
       hr
       h2

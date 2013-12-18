@@ -7,7 +7,7 @@ function Linear(settings) {
     }, settings);
     this.videoClicks = null;
     this.mediaFiles = [];
-    this.TrackingEvents = [];
+    this.trackingEvents = null;
 }
 
 Linear.prototype.addMediaFile = function(mediaFile){
@@ -16,8 +16,8 @@ Linear.prototype.addMediaFile = function(mediaFile){
 Linear.prototype.setVideoClicks = function(videoClicks){
     this.videoClicks = videoClicks;
 };
-Linear.prototype.addTracking = function(tracking){
-    this.TrackingEvents.push(tracking);
+Linear.prototype.setTrackingEvents = function(trackingEvents){
+    this.trackingEvents = trackingEvents;
 };
 
 exports.Linear = Linear;

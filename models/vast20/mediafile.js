@@ -4,15 +4,16 @@ function MediaFile(settings) {
     this.settings = _.merge({
         id: "",
         delivery: "streaming",
-        type: "video/ogg",
-        bitrate: "",
-        width: 640,
-        height: 360,
+        //type: "video/ogg",
+        //bitrate: "",
+        //width: 640,
+        //height: 360,
         scalable: true,
         maintainAspectRatio: "",
-        apiFramework: "",
-        value: null
+        apiFramework: ""
     }, settings);
+    this.video = null;
+
 }
 
 MediaFile.type = ["video/ogg","video/mp4","video/webm"];

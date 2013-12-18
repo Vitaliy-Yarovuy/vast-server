@@ -3,6 +3,38 @@
   margin: 0 0 2px 5px;
   vertical-align: middle;
 }
+.fl-r {
+  float: right;
+}
+.fl-l {
+  float: left;
+}
+.pos-a {
+  position: absolute;
+}
+.tr-5 {
+  top: 5px;
+  right: 5px;
+}
+.td-pos-r td,
+.td-pos-r th {
+  position: relative;
+}
+.col-c-2 {
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+}
+.form-group {
+  margin-bottom: 10px;
+}
+fieldset {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+fieldset legend.sm {
+  font-size: 16px;
+}
 .test-point-list li {
   float: left;
   margin-right: 35px;
