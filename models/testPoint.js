@@ -12,8 +12,6 @@ function generateBaseCreative(){
     var videoClicks = new vast20.VideoClicks({});
     linear.setVideoClicks(videoClicks);
     linear.addMediaFile(new vast20.MediaFile({}));
-    linear.addMediaFile(new vast20.MediaFile({}));
-    linear.addMediaFile(new vast20.MediaFile({}));
     return creative;
 }
 
@@ -27,7 +25,6 @@ function generateBaseInLine(id){
         AdTitle: "GPMD"
     });
     vast.setInLine(inLine);
-    inLine.addCreative(generateBaseCreative());
     inLine.addCreative(generateBaseCreative());
     return vast;
 }
