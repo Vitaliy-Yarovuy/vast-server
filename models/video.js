@@ -35,7 +35,7 @@ function findAllVideoInDir(prefix, rootPath){
             var dPath = path.join(rootPath,files[i]);
             var stats = fs.statSync(dPath);
             if(stats.isDirectory()){
-                var key = prefix + '_' + files[i];
+                var key = "d_" + prefix + '_' + files[i];
                 lists[key] = new Video(key, dPath);
             }
         }

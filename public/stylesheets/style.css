@@ -12,9 +12,16 @@
 .pos-a {
   position: absolute;
 }
+.pos-r {
+  position: relative;
+}
 .tr-5 {
   top: 5px;
   right: 5px;
+}
+.r-0 {
+  right: 0;
+  left: inherit;
 }
 .td-pos-r td,
 .td-pos-r th {
@@ -27,6 +34,12 @@
 }
 .form-group {
   margin-bottom: 10px;
+}
+.btn-group.width-100 {
+  width: 100%;
+}
+.btn-group.width-100 > .btn {
+  width: 100%;
 }
 fieldset {
   margin-left: 3px;

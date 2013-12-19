@@ -2,7 +2,7 @@ extends layout
 
 block content
   script!= 'window.pointID ="'+id+'";'
-  script!= 'window.vildeoLists = '+JSON.stringify(videoLists)+';'
+  script!= 'window.videoLists = '+JSON.stringify(videoLists)+';'
 
   .row(ng-controller='PointCtrl')
     .col-md-6
@@ -19,28 +19,28 @@ block content
             .row
               .col-xs-6
                 .form-group
-                   label( for="vast_id") vast id
+                   label(for="vast_id") vast id
                    input.form-control.input-sm#vast_id( type="text", ng-model="vast.settings.id")
             fieldset(ng-if="vast.inLine")
               legend InLine:
               .row
                 .col-xs-4
                   .form-group
-                    label( for="inLine_AdSystem") AdSystem
+                    label(for="inLine_AdSystem") AdSystem
                     input.form-control.input-sm#inLine_AdSystem( type="text", ng-model="vast.inLine.settings.AdSystem")
                   .form-group
-                    label( for="inLine_version") version
+                    label(for="inLine_version") version
                     input.form-control.input-sm#inLine_version( type="text", ng-model="vast.inLine.settings.version")
                 .col-xs-4
                   .form-group
-                    label( for="inLine_AdTitle") AdTitle
+                    label(for="inLine_AdTitle") AdTitle
                     input.form-control.input-sm#inLine_AdTitle( type="text", ng-model="vast.inLine.settings.AdTitle")
                   .form-group
-                    label( for="inLine_Description") Description
+                    label(for="inLine_Description") Description
                     input.form-control.input-sm#inLine_Description( type="text", ng-model="vast.inLine.settings.Description")
                 .col-xs-4
                   .form-group
-                    label( for="inLine_Survey") Survey
+                    label(for="inLine_Survey") Survey
                     input.form-control.input-sm#inLine_Survey( type="text", ng-model="vast.inLine.settings.Survey")
 
               fieldset(ng-if="vast.inLine")
@@ -58,15 +58,15 @@ block content
                       .row
                         .col-xs-4
                           .form-group
-                            label( for="creative_id") id
+                            label(for="creative_id") id
                             input.form-control.input-sm#creative_id( type="text", ng-model="creative.settings.id")
                         .col-xs-4
                           .form-group
-                            label( for="creative_sequence") sequence
+                            label(for="creative_sequence") sequence
                             input.form-control.input-sm#creative_sequence( type="text", ng-model="creative.settings.sequence")
                         .col-xs-4
                           .form-group
-                            label( for="creative_AdID") AdID
+                            label(for="creative_AdID") AdID
                             input.form-control.input-sm#creative_AdID( type="text", ng-model="creative.settings.AdID")
 
                       fieldset(ng-if="creative.linear")
@@ -74,11 +74,11 @@ block content
                         .row
                           .col-xs-6
                             .form-group
-                              label( for="linear_Duration") Duration
+                              label(for="linear_Duration") Duration
                               input.form-control.input-sm#linear_Duration( type="text", ng-model="creative.linear.settings.Duration")
                           .col-xs-6
                             .form-group
-                              label( for="linear_AdParameters") AdParameters
+                              label(for="linear_AdParameters") AdParameters
                               input.form-control.input-sm#linear_AdParameters( type="text", ng-model="vast.inLine.settings.AdParameters")
 
                         .row
@@ -114,10 +114,10 @@ block content
                               .row
                                 .col-xs-6
                                   .form-group
-                                    label( for="mediaFile_id") id
+                                    label(for="mediaFile_id") id
                                     input.form-control.input-sm#mediaFile_id( type="text", ng-model="mediaFile.settings.id")
                                   .form-group
-                                    label( for="mediaFile_delivery") delivery
+                                    label(for="mediaFile_delivery") delivery
                                     input.form-control.input-sm#mediaFile_delivery( type="text", ng-model="mediaFile.settings.delivery.")
 
                                   .checkbox
@@ -126,11 +126,41 @@ block content
                                       | scalable
                                 .col-xs-6
                                   .form-group
-                                    label( for="mediaFile_maintainAspectRatio") maintainAspectRatio
+                                    label(for="mediaFile_maintainAspectRatio") maintainAspectRatio
                                     input.form-control.input-sm#mediaFile_maintainAspectRatio( type="text", ng-model="mediaFile.settings.maintainAspectRatio")
                                   .form-group
-                                    label( for="mediaFile_apiFramework") apiFramework
+                                    label(for="mediaFile_apiFramework") apiFramework
                                     input.form-control.input-sm#mediaFile_apiFramework( type="text", ng-model="mediaFile.settings.apiFramework")
+
+                                  .btn-group.width-100(ng-select-video="mediaFile.video", ng-select-video-lists="videoLists")
+                                    button.btn.dropdown-toggle(data-toggle="dropdown")
+                                      span(ng-select-video-btn) select video
+                                      | &nbsp;
+                                      span.pull-right.caret(style="margin-top:8px;")
+                                    ul.dropdown-menu.r-0( role="menu")
+                                      li(ng-repeat="(key,video) in videoLists")
+                                        a(href="#",ng-select-video-item="key")
+                                          h5 {{key}}
+                              br.small
+                              .row(ng-if="mediaFile.video")
+                                .col-xs-6
+                                  .form-group
+                                    label(for="mediaFile_width") width
+                                    input.form-control.input-sm#mediaFile_width(disabled, type="text", value="{{getVideoWidth(mediaFile.video)}}")
+                                  .form-group
+                                    label(for="mediaFile_height") height
+                                    input.form-control.input-sm#mediaFile_height(disabled, type="text", value="{{getVideoHeight(mediaFile.video)}}")
+                                .col-xs-6
+                                  .form-group
+                                    label(for="mediaFile_bitrate") bitrate
+                                    input.form-control.input-sm#mediaFile_bitrate(disabled, type="text", value="{{getVideoBitRate(mediaFile.video)}}")
+                                  .form-group
+                                    label(for="mediaFile_format") format
+                                    br
+                                    .btn-group(ng-select-video-type="mediaFile.types")
+                                      select.form-control.input-sm#mediaFile_format(multiple)
+                                        option(ng-repeat="type in getVideoFormat(mediaFile.video)", value="{{$index}}") {{type}}
+                                      button.btn.btn-primary Select All
 
                             td
                               button.btn.btn-xs.btn-danger.pos-a.tr-5(disabled=true) remove
@@ -155,16 +185,16 @@ block content
             .row
               .col-xs-6
                 .form-group
-                  label( for="AdSystem") AdSystem
+                  label(for="AdSystem") AdSystem
                   input.form-control#AdSystem( type="text", value="AdFox.Ru")
               .col-xs-6
                 .form-group
-                  label( for="AdTitle") AdTitle
+                  label(for="AdTitle") AdTitle
                   input.form-control#AdTitle( type="text", value="GPMD")
             fieldset
               legend Creative
               .form-group
-                label( for="Duration") Duration
+                label(for="Duration") Duration
                 input.form-control#Duration( type="number", value="0")
 
 

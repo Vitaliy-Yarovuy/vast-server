@@ -13,6 +13,7 @@ function MediaFile(settings) {
         apiFramework: ""
     }, settings);
     this.video = null;
+    this.types = [];
 
 }
 
