@@ -1,4 +1,5 @@
 var video = require('../models/video');
+var vast20 = require('../models/vast20');
 var path = require('path');
 
 
@@ -12,3 +13,19 @@ exports.point = function(req, res){
         videoLists: video.lists
     });
 };
+
+exports.vast = function(req, res){
+    var vast_id = req.params.vast_id;
+    var vast = vast20.Vast.collections[vast_id];
+    res.header('Content-Type', 'application/xml');
+    if(vast){
+        res.render('vast20/vast', {
+            locals:{},
+            vast: vast.toJSON()
+        });
+    }else{
+        res.render('vast20/nobaner', {});
+    }
+
+};
+

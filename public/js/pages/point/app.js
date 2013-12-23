@@ -4,7 +4,7 @@
         $scope.point = {};
         $scope.pointId = window.pointID;
         $scope.videoLists = window.videoLists;
-        socket.emit("testPoints::get", $scope.pointId, function(err, point){
+        socket.emit("testpoints::get", $scope.pointId,function(err, point){
             $scope.point = point;
             window.select_point = point;
         });

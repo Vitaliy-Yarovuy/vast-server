@@ -6,21 +6,24 @@ function TestPointService() {
     this.testPoints = {};
 }
 
-TestPointService.prototype.create = function (data, params, callback) {
+TestPointService.prototype.create = function (data) {
+    var callback = arguments[arguments.length-1];
     var id = data.id, point = new TestPoint(id);
     this.testPoints[id] = point;
     callback(null, point);
 };
 
 
-TestPointService.prototype.get = function (id, callback) {
+TestPointService.prototype.get = function (id) {
+    var callback = arguments[arguments.length-1];
     if (!this.testPoints[id]) {
-        this.create({id:id},{},function(){});
+        this.create({id:id},function(){});
     }
     callback(null, this.testPoints[id]);
 };
 
-TestPointService.prototype.find = function (params, callback) {
+TestPointService.prototype.find = function (params) {
+    var callback = arguments[arguments.length-1];
     var list = [];
     for(var key in this.testPoints){
         if(this.testPoints.hasOwnProperty(key)){

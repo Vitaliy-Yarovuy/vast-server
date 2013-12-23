@@ -3,10 +3,10 @@
     var app = angular.module('App',[]).controller('PointListCtrl',function($scope, socket, $timeout) {
         $scope.pointId = "";
         $scope.pointList = [];
-        socket.emit("testPoints::find",{},function(err, list){
+        socket.emit("testpoints::find",{},function(err, list){
             $scope.pointList = list;
         });
-        socket.on("testPoints created",function(item){
+        socket.on("testpoints created",function(item){
             item.isNew = true;
             $timeout(function() {
                 item.isNew = false;

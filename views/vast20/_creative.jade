@@ -1,0 +1,23 @@
+Creative(id=(creative.settings.id||undefined), sequence=(creative.settings.sequence||undefined), AdID=(creative.settings.AdID||undefined))
+  if creative.linear
+    - var linear = creative.linear;
+    Linear
+      Duration= linear.settings.Duration
+      TrackingEvents
+        each state, type in linear.trackingEvents.settings
+          if state
+            tracking(event=type) #
+
+      if linear.settings.AdParameters
+        AdParameters= linear.settings.AdParameters
+
+      if linear.videoClicks
+      videoclicks
+          if linear.videoClicks.settings.ClickThrough
+            ClickThrough #
+          if linear.videoClicks.settings.ClickThrough
+            ClickTracking #
+          if linear.videoClicks.settings.CustomClick
+            CustomClick #
+      mediafiles
+        mediafile#1(delivery='progressive', type='video/mp4', bitrate='', maintainaspectratio='true', scalable='true', width='640', height='360')

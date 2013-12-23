@@ -1,0 +1,29 @@
+!!! xml
+VAST(version='2.0', xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance', xsi:nonamespaceschemalocation='http://specs.adfox.ru/uploads/vast.xsd')
+  Ad(id=(vast.settings.id||undefined))
+    if vast.inLine
+      - var inLine = vast.inLine;
+      InLine
+        AdSystem(version=(inLine.settings.version||undefined))= inLine.settings.AdSystem
+        AdTitle= inLine.settings.AdTitle
+        if inLine.settings.Description
+          Description= inLine.settings.Description
+        if inLine.settings.Survey
+          Survey #
+        Error #
+        Impression #
+        Creatives
+          each creative in inLine.creatives
+            include _creative
+        include _extensions
+    if vast.wrapper
+      - var wrapper = vast.wrapper;
+      Wrapper
+        AdSystem(version=(inLine.settings.version||undefined))= inLine.settings.AdSystem
+        VASTAdTagURI #
+        Error #
+        Impression #
+        Creatives
+          each creative in inLine.creatives
+            include _creative
+        include _extensions

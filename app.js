@@ -8,7 +8,8 @@
 var feathers = require('feathers');
 var routes = {
     index: require('./routes/index').index,
-    point: require('./routes/point').point
+    point: require('./routes/point').point,
+    vast: require('./routes/point').vast
 };
 
 var services = {
@@ -39,11 +40,12 @@ app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
 app.use(feathers.static(path.join(__dirname, 'public')));
 
 app.configure(feathers.socketio());
-app.use('/testPoints', services.testPointService);
+app.use('/testpoints', services.testPointService);
 
 
 app.get('/', routes.index);
 app.get('/point/:id', routes.point);
+app.get('/point/:id/vast/:vast_id/vast.xml', routes.vast);
 
 
 // development only
