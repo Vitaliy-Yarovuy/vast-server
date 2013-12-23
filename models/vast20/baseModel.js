@@ -1,9 +1,15 @@
+var _ = require("lodash");
+
 
 function getNextId(prefix){
     var keys = Object.keys(BaseModel.collections).map(function(key){
         return key.indexOf(prefix) === 0;
     });
     return prefix + keys.length;
+}
+
+function getJSON(obj){
+    return obj.toJSON?  obj.toJSON() : _.clone(obj);
 }
 
 
@@ -17,24 +23,29 @@ function BaseModel(id){
 BaseModel.prototype.constructor = BaseModel;
 BaseModel.prototype.idPrefix = "base_";
 BaseModel.prototype.getId = function(){
+    if(!this.id){
+        throw new Error("not id set on " + this.toJSON()  + " object");
+    }
     return this.id;
 };
 
 BaseModel.prototype.toJSON = function(){
-    var obj = JSON.parse(JSON.stringify(this));
-
+    var obj = _.clone(this);
     this.constructor.links.forEach(function(key){
-        var link = BaseModel.collections[obj[key]];
-        if(link.toJSON){
-            link = link.toJSON();
-        }else{
-            link = JSON.parse(JSON.stringify(link));
+        var link = obj[key];
+        if(link){
+            if( link instanceof Array ){
+                obj[key] = link.map(function(item){
+                    item = BaseModel.collections[item];
+                    return getJSON(item);
+                });
+            }else{
+                link = BaseModel.collections[link];
+                obj[key] = getJSON(link);
+            }
         }
-        obj[key] = link;
     });
-
-    return JSON.stringify(obj);
-
+    return obj;
 };
 
 BaseModel.links = [];

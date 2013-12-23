@@ -13,21 +13,15 @@ function Vast(settings){
 }
 
 utils.extend(Vast, BaseModel);
-
 Vast.links = ["inLine","wrapper"];
-
 Vast.prototype.idPrefix = "vast_";
 
 Vast.prototype.setInLine = function(inLine){
-    if(inLine.getId){
-        this.inLine = inLine.getId();
-    }
+    this.inLine = inLine.getId ? inLine.getId() : inLine;
 };
 
 Vast.prototype.setWrapper = function(wrapper){
-    if(wrapper.getId){
-        this.wrapper = wrapper.getId();
-    }
+    this.wrapper = wrapper.getId ? wrapper.getId() : wrapper;
 };
 
 

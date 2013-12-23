@@ -20,11 +20,11 @@ var services = {
 //};
 var http = require('http');
 var path = require('path');
-
+var port = process.env.PORT || 3000;
 var app = feathers();
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', port);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(feathers.favicon());
@@ -52,17 +52,7 @@ if ('development' == app.get('env')) {
 }
 
 
-app.listen(3000);
+app.listen(port, function(){
+  console.log('Express server listening on port ' + port);
+});
 
-
-
-
-
-//server.listen(app.get('port'), function(){
-//  console.log('Express server listening on port ' + app.get('port'));
-//});
-
-//io.sockets.on('connection', function (socket) {
-//    controllers.index(socket);
-//    controllers.point(socket);
-//});

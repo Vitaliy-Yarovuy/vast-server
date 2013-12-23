@@ -1,6 +1,9 @@
 var _ = require("lodash");
+var utils = require("../../utils/utils");
+var BaseModel = require("./baseModel").BaseModel;
 
 function TrackingEvents(settings) {
+    BaseModel.call(this);
     this.settings = _.merge({
         creativeView: true,
         start: true,
@@ -20,5 +23,9 @@ function TrackingEvents(settings) {
         close: true
     }, settings);
 }
+
+utils.extend(TrackingEvents, BaseModel);
+TrackingEvents.links = [];
+TrackingEvents.prototype.idPrefix = "trackingevents_";
 
 exports.TrackingEvents = TrackingEvents;
