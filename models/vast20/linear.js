@@ -2,8 +2,8 @@ var _ = require("lodash");
 var utils = require("../../utils/utils");
 var BaseModel = require("./baseModel").BaseModel;
 
-function Linear(settings) {
-    BaseModel.call(this);
+function Linear(id, settings) {
+    BaseModel.call(this, id);
     this.settings = _.merge({
         Duration: "",
         AdParameters: ""

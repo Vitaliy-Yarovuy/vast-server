@@ -2,8 +2,8 @@ var _ = require("lodash");
 var utils = require("../../utils/utils");
 var BaseModel = require("./baseModel").BaseModel;
 
-function TrackingEvents(settings) {
-    BaseModel.call(this);
+function TrackingEvents(id, settings) {
+    BaseModel.call(this, id);
     this.settings = _.merge({
         creativeView: true,
         start: true,

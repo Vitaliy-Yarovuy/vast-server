@@ -1,26 +1,26 @@
 var vast20 = require("./vast20");
 
 function generateBaseCreative(){
-    var creative = new vast20.Creative({});
-    var linear = new vast20.Linear({
+    var creative = new vast20.Creative(null,{});
+    var linear = new vast20.Linear(null,{
         Duration: "00:00:00",
         AdParameters: ""
     });
     creative.setLinear(linear);
-    var trackingEvents = new vast20.TrackingEvents({});
+    var trackingEvents = new vast20.TrackingEvents(null,{});
     linear.setTrackingEvents(trackingEvents);
-    var videoClicks = new vast20.VideoClicks({});
+    var videoClicks = new vast20.VideoClicks(null,{});
     linear.setVideoClicks(videoClicks);
-    linear.addMediaFile(new vast20.MediaFile({}));
+    linear.addMediaFile(new vast20.MediaFile(null,{}));
     return creative;
 }
 
 
 function generateBaseInLine(id){
-    var vast = new vast20.Vast({
+    var vast = new vast20.Vast(null,{
         id: "321633-"+id
     });
-    var inLine = new vast20.InLine({
+    var inLine = new vast20.InLine(null,{
         AdSystem: "AdFox.Ru",
         AdTitle: "GPMD"
     });

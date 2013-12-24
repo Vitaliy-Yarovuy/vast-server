@@ -2,8 +2,8 @@ var _ = require("lodash");
 var utils = require("../../utils/utils");
 var BaseModel = require("./baseModel").BaseModel;
 
-function VideoClicks(settings) {
-    BaseModel.call(this);
+function VideoClicks(id, settings) {
+    BaseModel.call(this, id);
     this.settings = _.merge({
         ClickThrough: true,
         ClickTracking: true,

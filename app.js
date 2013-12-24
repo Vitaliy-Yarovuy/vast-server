@@ -6,15 +6,15 @@
 //var express = require('express');
 
 var feathers = require('feathers');
+var _ = require('lodash');
 var routes = {
     index: require('./routes/index').index,
     point: require('./routes/point').point,
     vast: require('./routes/point').vast
 };
 
-var services = {
-    testPointService: require('./services/testPointService').testPointService
-};
+var vast20 = require("./models/vast20");
+var services =  require('./services');
 //var controllers = {
 //    index: require('./socet.io.controllers/index').index,
 //    point: require('./socet.io.controllers/point').point
@@ -40,8 +40,16 @@ app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
 app.use(feathers.static(path.join(__dirname, 'public')));
 
 app.configure(feathers.socketio());
-app.use('/testpoints', services.testPointService);
 
+app.use('/testpoints', services.testPointService);
+console.log('create service on url' ,'/testpoints');
+
+_.each(vast20,function(Model,key){
+    if(key != "BaseModel"){
+        app.use('/vast20/'+key.toLowerCase(), services.serviceFactory.build(Model));
+        console.log('create service on url' ,'/vast20/'+key.toLowerCase());
+    }
+});
 
 app.get('/', routes.index);
 app.get('/point/:id', routes.point);

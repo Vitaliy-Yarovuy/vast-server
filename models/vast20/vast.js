@@ -3,8 +3,8 @@ var utils = require("../../utils/utils");
 var BaseModel = require("./baseModel").BaseModel;
 
 
-function Vast(settings){
-    BaseModel.call(this);
+function Vast(id, settings){
+    BaseModel.call(this,id);
     this.settings = _.merge({
         id: null
     },settings);

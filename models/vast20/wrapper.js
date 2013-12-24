@@ -2,8 +2,8 @@ var _ = require("lodash");
 var utils = require("../../utils/utils");
 var BaseModel = require("./baseModel").BaseModel;
 
-function Wrapper(settings) {
-    BaseModel.call(this);
+function Wrapper(id, settings) {
+    BaseModel.call(this, id);
     this.settings = _.merge({
         AdSystem: ""
     }, settings);

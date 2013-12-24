@@ -3,8 +3,8 @@ var utils = require("../../utils/utils");
 var BaseModel = require("./baseModel").BaseModel;
 
 
-function InLine(settings) {
-    BaseModel.call(this);
+function InLine(id, settings) {
+    BaseModel.call(this, id);
     this.settings = _.merge({
         AdSystem: "",
         version:null,

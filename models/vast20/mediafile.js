@@ -2,8 +2,8 @@ var _ = require("lodash");
 var utils = require("../../utils/utils");
 var BaseModel = require("./baseModel").BaseModel;
 
-function MediaFile(settings) {
-    BaseModel.call(this);
+function MediaFile(id, settings) {
+    BaseModel.call(this, id);
     this.settings = _.merge({
         id: "",
         delivery: "streaming",

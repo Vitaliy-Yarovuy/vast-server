@@ -3,8 +3,8 @@ var utils = require("../../utils/utils");
 var BaseModel = require("./baseModel").BaseModel;
 
 
-function Creative(settings){
-    BaseModel.call(this);
+function Creative(id, settings){
+    BaseModel.call(this, id);
     this.settings = _.merge({
         id: "",
         sequence: null,
