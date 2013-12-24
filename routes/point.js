@@ -19,7 +19,6 @@ exports.vast = function(req, res){
     var vast = vast20.Vast.collections[vast_id];
     res.header('Content-Type', 'application/xml');
     if(vast){
-//        res.send('hello world');
         res.render('vast20/vast', {
             locals:{},
             vast: vast.toJSON()
@@ -27,6 +26,4 @@ exports.vast = function(req, res){
     }else{
         res.render('vast20/nobaner', {});
     }
-
 };
-

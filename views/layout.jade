@@ -4,6 +4,7 @@ html(ng-app="App")
     title= title
     link(rel='stylesheet', href='/libs/bootstrap-3.0.3/css/bootstrap.css')
     link(rel='stylesheet', href='/libs/bootstrap-3.0.3/css/bootstrap-theme.css')
+    link(rel='stylesheet', href='/libs/xmltree/xmltree.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     .navbar.navbar-inverse.navbar-fixed-top
@@ -17,6 +18,8 @@ html(ng-app="App")
       block content
 
     script(src='/libs/jquery-2.0.3.js')
+    script(src='/js/utils/jquery.fix.js')
+    script(src='/libs/xmltree/xmltree.js')
     script(src='/socket.io/socket.io.js')
     script(src='/libs/bootstrap-3.0.3/js/bootstrap.js')
     script(src='/libs/bootstrap-multiselect.js')

@@ -14,26 +14,28 @@ app.directive('ngVastXmlView', function ($compile, $timeout, $http) {
         injection = script;
     });
 
+    var count  = 0 ;
+
     return {
         scope: false,
         link: function (scope, $element, attrs) {
             var id_vast = scope.$eval(attrs.ngVastXmlView).id,
                 id_point = scope.$eval(attrs.ngPoint).id,
-                url = getUrl(id_point,id_vast);
+                url = getUrl(id_point,id_vast),
+                ifWindow = $element.get(0).contentWindow,
+                updateView = function (){
 
-            $element.on("load",function(){
-                setTimeout(function(){
-                    $element.get(0).contentWindow.eval(injection);
-                },10);
-            });
+                    new XMLTree({
+                        fpath: url,
+                        container: $element.getSelector(true),
+                        startExpanded: false
+                    });
+                };
 
-            setTimeout(function(){
-                $element.get(0).src = url;
-            },100);
-
+//            updateView();
             scope.$watch(attrs.ngVastXmlView,_.debounce(function(vast){
-                $element.get(0).contentWindow.location.reload();
-            },100), true);
+                updateView();
+            },300), true);
         }
     };
 });
