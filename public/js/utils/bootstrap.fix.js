@@ -11,6 +11,7 @@ if (typeof jQuery === "undefined") {
 
 (function ($) {
     "use strict";
+    var tabPrefix = ["settings_","views_"];
 
     $.fn.tab = (function (oldFunc) {
         return function(option){
@@ -18,8 +19,18 @@ if (typeof jQuery === "undefined") {
             this.each(function () {
                 var $this = $(this);
                 if($this.prop("tagName") == "A"){
-                    var $else = $('a[href="'+$this.attr("href")+'"]').not($this);
-                    oldFunc.call($else,option);
+                    var href = $this.attr("href");
+                    var prefix = tabPrefix.filter(function(pref){
+                        return href.indexOf(pref) == 1;
+                    })[0];
+                    if(prefix){
+                        tabPrefix.filter(function(pref){
+                            return pref != prefix;
+                        }).map(function(pref){
+                            var $else = $('a[href="'+href.replace(prefix,pref)+'"]');
+                                oldFunc.call($else,option);
+                        });
+                    }
                 }
             });
             return result;

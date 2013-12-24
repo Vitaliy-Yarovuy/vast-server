@@ -7,7 +7,7 @@ video.findAllVideo(path.join(__dirname, '../public/video/'));
 
 exports.point = function(req, res){
     var id = req.params.id;
-    res.render('point', {
+    res.render('point/index', {
         id: id,
         title: 'test point "'+id+'" ',
         videoLists: video.lists
@@ -19,6 +19,7 @@ exports.vast = function(req, res){
     var vast = vast20.Vast.collections[vast_id];
     res.header('Content-Type', 'application/xml');
     if(vast){
+//        res.send('hello world');
         res.render('vast20/vast', {
             locals:{},
             vast: vast.toJSON()

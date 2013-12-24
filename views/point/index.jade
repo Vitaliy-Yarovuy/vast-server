@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+  script!= 'window.pointID ="'+id+'";'
+  script!= 'window.videoLists = '+JSON.stringify(videoLists)+';'
+
+  .row(ng-controller='PointCtrl')
+    .col-md-6
+      include _settings
+
+    .col-md-6
+      include _views
+      hr
+      include _statistics
+
+
+
+block scripts
+  link(rel='stylesheet', href="/libs/google-code-prettify/src/prettify.css")
+  script(src="/libs/google-code-prettify/src/prettify.js", defer="defer")
+  script(src="/js/pages/point/app.js")
+

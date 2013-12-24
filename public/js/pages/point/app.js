@@ -25,6 +25,10 @@
             return videoHelper.getFormat($scope.videoLists[key]);
         };
 
+        $scope.getLink = function(vast){
+            return location.origin + "/point/"+ $scope.point.id + "/vast/" + vast.id + "/vast.xml";
+        };
+
 
         //todo create directive fot this
         var $text = $(".navbar .navbar-text");
