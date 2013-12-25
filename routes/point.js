@@ -1,6 +1,7 @@
 var video = require('../models/video');
 var vast20 = require('../models/vast20');
 var path = require('path');
+var _ = require('lodash');
 
 
 video.findAllVideo(path.join(__dirname, '../public/video/'));
@@ -10,7 +11,8 @@ exports.point = function(req, res){
     res.render('point/index', {
         id: id,
         title: 'test point "'+id+'" ',
-        videoLists: video.lists
+        videoLists: video.lists,
+        modelLinks: _.mapValues(vast20,function(model){ return model.links; })
     });
 };
 

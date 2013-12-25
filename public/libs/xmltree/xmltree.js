@@ -276,7 +276,11 @@
         } else
             this.tree.find('.currSel').parentsUntil('.xmltree').show();
 
-    }
+    };
+
+    XMLTree.prototype.remove = function(){
+        this.tree.remove();
+    };
 
 
     //log instances

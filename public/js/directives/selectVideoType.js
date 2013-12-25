@@ -33,6 +33,11 @@ app.directive('ngSelectVideoType', function ($compile, $timeout) {
             scope.$watch(attrs.ngSelectVideoType,function(selectValues){
                 if(selectValues){
                     $btn.html(selectValues.length == totalCount ? "Deselect All" :"Select All");
+                    setTimeout(function(){
+                        selectValues.forEach(function(val){
+                            $select.multiselect('select', val);
+                        });
+                    },100)
                 }
             },50);
 

@@ -75,7 +75,7 @@ ul.nav.nav-tabs
                         div
                           .checkbox(ng-repeat="(key,set) in creative.linear.videoClicks.settings" )
                             label
-                              input(type="checkbox", ng-model="set")
+                              input(type="checkbox", ng-model="creative.linear.videoClicks.settings[key]")
                               | {{key}}
                     .col-xs-8
                       fieldset(ng-if="creative.linear.trackingEvents",style="margin-top:11px;")
@@ -83,8 +83,8 @@ ul.nav.nav-tabs
                         div.col-c-2
                           .checkbox(ng-repeat="(key,set) in creative.linear.trackingEvents.settings" )
                             label
-                              input(type="checkbox", ng-model="set")
-                              | {{key}}
+                              input(type="checkbox", ng-model="creative.linear.trackingEvents.settings[key]")
+                              span {{key}}
                 fieldset
                   legend.sm MediaFiles:
                   table.table.table-hover.td-pos-r
@@ -142,7 +142,8 @@ ul.nav.nav-tabs
                               br
                               .btn-group(ng-select-video-type="mediaFile.types")
                                 select.form-control.input-sm#mediaFile_format(multiple)
-                                  option(ng-repeat="type in getVideoFormat(mediaFile.video)", value="{{$index}}") {{type}}
+                                  option(ng-repeat="type in getVideoFormat(mediaFile.video)", value="{{$index}}")
+                                    | {{type}}
                                 button.btn.btn-primary Select All
                       td
                         button.btn.btn-xs.btn-danger.pos-a.tr-5(disabled=true) remove

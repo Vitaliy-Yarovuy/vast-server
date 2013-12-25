@@ -22,10 +22,10 @@ app.directive('ngVastXmlView', function ($compile, $timeout, $http) {
             var id_vast = scope.$eval(attrs.ngVastXmlView).id,
                 id_point = scope.$eval(attrs.ngPoint).id,
                 url = getUrl(id_point,id_vast),
-                ifWindow = $element.get(0).contentWindow,
+                xmlTree,
                 updateView = function (){
-
-                    new XMLTree({
+                    xmlTree && xmlTree.remove();
+                    xmlTree = new XMLTree({
                         fpath: url,
                         container: $element.getSelector(true),
                         startExpanded: false

@@ -1,4 +1,5 @@
 var util = require("util");
+var _ = require("lodash");
 
 function ServiceFactory() {
     this.services = {};
@@ -26,6 +27,15 @@ ServiceFactory.prototype.build = function (Model) {
                     this.push(model);
                 },models);
                 callback(null, models);
+            },
+            update: function(args){
+                var id = args[0],
+                    data = args[1],
+                    callback = arguments[arguments.length-1],
+                    model = Model.collections[id];
+
+                _.merge(model, data);
+                callback(null, model);
             }
         };
         this.services[key] = service;

@@ -3,6 +3,7 @@ extends ../layout
 block content
   script!= 'window.pointID ="'+id+'";'
   script!= 'window.videoLists = '+JSON.stringify(videoLists)+';'
+  script!= 'window.modelLinks = '+JSON.stringify(modelLinks)+';'
 
   .row(ng-controller='PointCtrl')
     .col-md-6
@@ -12,7 +13,6 @@ block content
       include _views
       hr
       include _statistics
-
 
 
 block scripts
