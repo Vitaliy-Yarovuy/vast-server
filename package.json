@@ -11,6 +11,7 @@
     "feathers": "~0.2.0",
     "i": "~0.3.2",
     "lodash": "~2.4.1",
-    "node-ffprobe": "~1.2.2"
+    "node-ffprobe": "~1.2.2",
+    "vid-streamer": "~0.1.4"
   }
 }

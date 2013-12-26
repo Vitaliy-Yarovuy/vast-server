@@ -7,6 +7,7 @@
 
 var feathers = require('feathers');
 var _ = require('lodash');
+var vidStreamer = require("vid-streamer");
 var routes = {
     index: require('./routes/index').index,
     point: require('./routes/point').point,
@@ -55,6 +56,14 @@ app.get('/', routes.index);
 app.get('/point/:id', routes.point);
 app.get('/point/:id/vast/:vast_id/vast.xml', routes.vast);
 
+app.get("/videos/", vidStreamer.settings({
+    "mode": "development",
+    "forceDownload": false,
+    "random": false,
+    "rootFolder": path.join(__dirname, 'public/video-stream'),
+    "rootPath": "",
+    "server": "VidStreamer.js/0.1.4"
+}));
 
 // development only
 if ('development' == app.get('env')) {
