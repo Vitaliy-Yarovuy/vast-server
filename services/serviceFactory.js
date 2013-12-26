@@ -1,4 +1,4 @@
-var util = require("util");
+var utils = require("../utils/utils");
 var _ = require("lodash");
 
 function ServiceFactory() {
@@ -34,7 +34,7 @@ ServiceFactory.prototype.build = function (Model) {
                     callback = arguments[arguments.length-1],
                     model = Model.collections[id];
 
-                _.merge(model, data);
+                utils.replaceProp(model, data);
                 callback(null, model);
             }
         };

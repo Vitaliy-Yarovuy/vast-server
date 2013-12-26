@@ -13,3 +13,12 @@ exports.extend = function(Child, Parent){
     Child.prototype.constructor = Child;
     Child.superclass = Parent.prototype;
 };
+
+exports.replaceProp = function(to, from){
+    for(var key in from){
+        if(from.hasOwnProperty(key)){
+            to[key] = from[key];
+        }
+    }
+};
+

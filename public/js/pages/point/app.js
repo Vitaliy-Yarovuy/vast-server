@@ -7,6 +7,7 @@
         $scope.point = {};
         $scope.pointId = window.pointID;
         $scope.videoLists = window.videoLists;
+        $scope.modelEnums = window.modelEnums;
         socket.emit("testpoints::get", $scope.pointId,function(err, point){
             $scope.point = point;
             prevPoint = _.cloneCleaner(point);
@@ -33,12 +34,11 @@
             return location.origin + "/point/"+ $scope.point.id + "/vast/" + vast.id + "/vast.xml";
         };
 
-
         $scope.$watch("point", _.debounce(function(){
             var nowPoint = _.cloneCleaner($scope.point);
             var diffPoint = _.diff(prevPoint, nowPoint);
             console.log("diffPoint",diffPoint);
-            updateByDiff(diffPoint, nowPoint)
+            updateByDiff(diffPoint, nowPoint);
             prevPoint = nowPoint;
         },300),true);
 
@@ -51,7 +51,6 @@
                 })
             }
         }
-
 
 
         //todo create directive fot this

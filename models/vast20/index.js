@@ -1,4 +1,4 @@
-exports.BaseModel = require("./baseModel").BaseModel;
+exports.BaseModel = require("./../baseModel").BaseModel;
 exports.Vast = require("./vast").Vast;
 exports.Wrapper = require("./wrapper").Wrapper;
 exports.InLine = require("./inline").InLine;

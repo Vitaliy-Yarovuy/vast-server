@@ -1,6 +1,6 @@
 var _ = require("lodash");
 var utils = require("../../utils/utils");
-var BaseModel = require("./baseModel").BaseModel;
+var BaseModel = require("./../baseModel").BaseModel;
 
 function Wrapper(id, settings) {
     BaseModel.call(this, id);

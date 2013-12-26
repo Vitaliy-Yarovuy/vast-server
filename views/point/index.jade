@@ -4,6 +4,7 @@ block content
   script!= 'window.pointID ="'+id+'";'
   script!= 'window.videoLists = '+JSON.stringify(videoLists)+';'
   script!= 'window.modelLinks = '+JSON.stringify(modelLinks)+';'
+  script!= 'window.modelEnums = '+JSON.stringify(modelEnums)+';'
 
   .row(ng-controller='PointCtrl')
     .col-md-6

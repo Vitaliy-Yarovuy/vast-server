@@ -29,6 +29,38 @@ Video.prototype.init = function(){
     });
 };
 
+Video.prototype.getMediaData = function(){
+    if(!this.mediaData || !this.mediaData.length){
+        this.mediaData = this.files.map(function(file){
+
+            var videoStream = file.streams.filter(function(stream){
+                    return stream.height || stream.width;
+                })[0],
+                format = file.format.format_name;
+
+            if(format.indexOf("webm") != -1){
+                format = "video/webm";
+            }else if(format.indexOf("mp4") != -1){
+                format = "video/mp4";
+            }else if(format.indexOf("ogg") != -1){
+                format = "video/ogg";
+            }else if(format.indexOf("flv") != -1){
+                format = "video/flv";
+            }
+
+            return {
+                type: format,
+                bit_rate: file.format.bit_rate,
+                width: videoStream.width,
+                height: videoStream.height,
+                src: "/" + file.file.split("/public/")[1]
+            };
+        });
+    }
+    return this.mediaData;
+};
+
+
 function findAllVideoInDir(prefix, rootPath){
     fs.readdir(rootPath, function(err, files){
         for(var i = 0; i < files.length; i++){

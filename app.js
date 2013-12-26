@@ -3,23 +3,17 @@
  * Module dependencies.
  */
 
-//var express = require('express');
-
+// like express
 var feathers = require('feathers');
 var _ = require('lodash');
 var vidStreamer = require("vid-streamer");
-var routes = {
-    index: require('./routes/index').index,
-    point: require('./routes/point').point,
-    vast: require('./routes/point').vast
-};
+var routes = require('./routes');
 
 var vast20 = require("./models/vast20");
+var vast20statistic = require("./models/vast20statistic");
 var services =  require('./services');
-//var controllers = {
-//    index: require('./socet.io.controllers/index').index,
-//    point: require('./socet.io.controllers/point').point
-//};
+var mediaFileHelper =  require('./helpers/mediafile').mediaFileHelper;
+
 var http = require('http');
 var path = require('path');
 var port = process.env.PORT || 3000;
@@ -42,6 +36,8 @@ app.use(feathers.static(path.join(__dirname, 'public')));
 
 app.configure(feathers.socketio());
 
+app.locals.mediaFileHelper = mediaFileHelper;
+
 app.use('/testpoints', services.testPointService);
 console.log('create service on url' ,'/testpoints');
 
@@ -51,10 +47,18 @@ _.each(vast20,function(Model,key){
         console.log('create service on url' ,'/vast20/'+key.toLowerCase());
     }
 });
+app.use('/vast20statistic', services.serviceFactory.build(vast20statistic.VastStatistic));
+console.log('create service on url' ,'/vast20statistic ');
+
+
 
 app.get('/', routes.index);
-app.get('/point/:id', routes.point);
-app.get('/point/:id/vast/:vast_id/vast.xml', routes.vast);
+app.get('/point/:id', routes.point.index);
+app.get('/point/:id/vast/:vast_id/vast.xml', routes.point.vast);
+
+app.get('/point/:id/statistic/:vast_id/event/:event_id', routes.point.vast_statistic);
+app.get('/point/:id/statistic/:vast_id/creative/:creative_id/tracking_event/:event_id', routes.point.tracking_statistic);
+app.get('/point/:id/statistic/:vast_id/creative/:creative_id/click_event/:event_id', routes.point.click_statistic);
 
 app.get("/videos/", vidStreamer.settings({
     "mode": "development",

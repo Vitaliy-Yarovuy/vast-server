@@ -1,4 +1,5 @@
 var vast20 = require("./vast20");
+var vast20statistic = require("./vast20statistic");
 
 function generateBaseCreative(){
     var creative = new vast20.Creative(null,{});
@@ -32,12 +33,15 @@ function generateBaseInLine(id){
 function TestPoint(id){
     this.id = id;
     this.vasts = {};
+    this.vastStatistics = {};
     this.init();
 }
 
 TestPoint.prototype.init = function(){
     this.vasts.inline_1 = generateBaseInLine('inline_1');
     this.vasts.inline_2 = generateBaseInLine('inline_2');
+    this.vastStatistics.inline_1 = new vast20statistic.VastStatistic(null, this.vasts.inline_1);
+    this.vastStatistics.inline_2 = new vast20statistic.VastStatistic(null, this.vasts.inline_2);
 };
 
 exports.TestPoint = TestPoint;

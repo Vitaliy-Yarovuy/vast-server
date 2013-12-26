@@ -101,9 +101,10 @@ ul.nav.nav-tabs
                             .form-group
                               label(for="mediaFile_id") id
                               input.form-control.input-sm#mediaFile_id( type="text", ng-model="mediaFile.settings.id")
-                            .form-group
-                              label(for="mediaFile_maintainAspectRatio") maintainAspectRatio
-                              input.form-control.input-sm#mediaFile_maintainAspectRatio( type="text", ng-model="mediaFile.settings.maintainAspectRatio")
+                            .checkbox
+                              label
+                                input(type="checkbox", ng-model="mediaFile.settings.maintainAspectRatio")
+                                | maintainAspectRatio
                             .checkbox
                               label
                                 input(type="checkbox", ng-model="mediaFile.settings.scalable")
@@ -111,10 +112,12 @@ ul.nav.nav-tabs
                           .col-xs-6
                             .form-group
                               label(for="mediaFile_delivery") delivery
-                              input.form-control.input-sm#mediaFile_delivery( type="text", ng-model="mediaFile.settings.delivery.")
+                              select.form-control.input-sm#mediaFile_delivery( ng-model="mediaFile.settings.delivery", ng-options="item for item in modelEnums.delivery")
+
                             .form-group
                               label(for="mediaFile_apiFramework") apiFramework
                               input.form-control.input-sm#mediaFile_apiFramework( type="text", ng-model="mediaFile.settings.apiFramework")
+
                             .btn-group.width-100(ng-select-video="mediaFile.video", ng-select-video-lists="videoLists")
                               button.btn.dropdown-toggle(data-toggle="dropdown")
                                 span(ng-select-video-btn) select video
