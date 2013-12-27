@@ -12,7 +12,6 @@ var routes = require('./routes');
 var vast20 = require("./models/vast20");
 var vast20statistic = require("./models/vast20statistic");
 var services =  require('./services');
-var mediaFileHelper =  require('./helpers/mediafile').mediaFileHelper;
 
 var http = require('http');
 var path = require('path');
@@ -36,7 +35,8 @@ app.use(feathers.static(path.join(__dirname, 'public')));
 
 app.configure(feathers.socketio());
 
-app.locals.mediaFileHelper = mediaFileHelper;
+app.locals.mediaFileHelper = require('./helpers/mediafile').mediaFileHelper;
+app.locals.vastUrlHelper = require('./helpers/vastUrl').vastUrlHelper;
 
 app.use('/testpoints', services.testPointService);
 console.log('create service on url' ,'/testpoints');

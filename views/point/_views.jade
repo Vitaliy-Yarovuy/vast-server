@@ -1,18 +1,18 @@
-h2 view
+div(ng-controller='PointViewsCtrl')
+  h2 views
+  ul.nav.nav-tabs
+    li(ng-repeat="(vastKey,vast) in point.vasts", class="{{$index==0?'active':''}}")
+      a(href="#views_{{vastKey}}", data-toggle="tab") {{vastKey}}
+  .tab-content
+    div(ng-repeat="(vastKey,vast) in point.vasts", id="views_{{vastKey}}",class="tab-pane {{$index==0?'active':''}}")
+      br
+      .input-group.input-group-sx
+        input(type="text", class="form-control", value="{{getVastLink(vast)}}", readonly=true)
+        span.input-group-btn
+          a.btn.btn-default(type="button",href="{{getVastLink(vast)}}", target="_blank") open
+      br
+      //<?prettify lang=xml?>
+      //pre.code.prettyprint(ng-vast-xml-view="vast", ng-point="point")= '<?xml version="1.0"?>\n<nobanner></nobanner>'
+      .code-tree(ng-vast-xml-view="vast", ng-point="point",)
 
-ul.nav.nav-tabs
-  li(ng-repeat="(vastKey,vast) in point.vasts", class="{{$index==0?'active':''}}")
-    a(href="#views_{{vastKey}}", data-toggle="tab") {{vastKey}}
-.tab-content
-  div(ng-repeat="(vastKey,vast) in point.vasts", id="views_{{vastKey}}",class="tab-pane {{$index==0?'active':''}}")
-    br
-    .input-group.input-group-sx
-      input(type="text", class="form-control", value="{{getLink(vast)}}")
-      span.input-group-btn
-        a.btn.btn-default(type="button",href="{{getLink(vast)}}", target="_blank") open
-    br
-    //<?prettify lang=xml?>
-    //pre.code.prettyprint(ng-vast-xml-view="vast", ng-point="point")= '<?xml version="1.0"?>\n<nobanner></nobanner>'
-    .code-tree(ng-vast-xml-view="vast", ng-point="point",)
-
-    p hello world !!!
+      p hello world !!!

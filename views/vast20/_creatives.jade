@@ -8,7 +8,7 @@ Creatives
           TrackingEvents
             each state, type in linear.trackingEvents.settings
               if state
-                tracking(event=type) #
+                tracking(event=type)=vastUrlHelper.getCreativeTrackingEventUrl(point,vast,creative,type.toLowerCase())
 
           if linear.settings.AdParameters
             AdParameters= linear.settings.AdParameters
@@ -16,11 +16,11 @@ Creatives
           if linear.videoClicks
           videoclicks
               if linear.videoClicks.settings.ClickThrough
-                ClickThrough #
+                ClickThrough=vastUrlHelper.getCreativeClickEventUrl(point,vast,creative,"clickthrough")
               if linear.videoClicks.settings.ClickThrough
-                ClickTracking #
+                ClickTracking=vastUrlHelper.getCreativeClickEventUrl(point,vast,creative,"clicktracking")
               if linear.videoClicks.settings.CustomClick
-                CustomClick #
+                CustomClick=vastUrlHelper.getCreativeClickEventUrl(point,vast,creative,"customclick")
           mediafiles
             each mediafile in linear.mediaFiles
               each mediaData in mediaFileHelper.getMediaDataFromVideo(mediafile.video, mediafile.types)

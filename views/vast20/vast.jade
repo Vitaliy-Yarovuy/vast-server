@@ -9,9 +9,9 @@ VAST(version='2.0', xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance', xsi:n
         if inLine.settings.Description
           Description= inLine.settings.Description
         if inLine.settings.Survey
-          Survey #
-        Error #
-        Impression #
+          Survey=vastUrlHelper.getVastEventUrl(point,vast,'survey')
+        Error=vastUrlHelper.getVastEventUrl(point,vast,'error')
+        Impression=vastUrlHelper.getVastEventUrl(point,vast,'impression')
         include _creatives
         include _extensions
     if vast.wrapper

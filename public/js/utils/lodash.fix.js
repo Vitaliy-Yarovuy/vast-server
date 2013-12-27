@@ -37,20 +37,22 @@
     };
     _.addKeyAfterDiff  = function(diff, now, keys) {
         keys = keys || [];
-        for (var prop in diff) {
-            if(diff.hasOwnProperty(prop)){
-                if (typeof diff[prop] == "object") {
-                    diff[prop] = _.addKeyAfterDiff(diff[prop], now[prop], keys);
+        if(now){
+            for (var prop in diff) {
+                if(diff.hasOwnProperty(prop)){
+                    if (typeof diff[prop] == "object") {
+                        diff[prop] = _.addKeyAfterDiff(diff[prop], now[prop], keys);
+                    }
+                }
+            }
+            for(var i =0; i< keys.length; i++){
+                var key = keys[i];
+                if(now[key] != undefined){
+                    diff[key] = now[key];
                 }
             }
         }
-       for(var i =0; i< keys.length; i++){
-           var key = keys[i];
-           if(now[key] != undefined){
-                diff[key] = now[key];
-           }
-       }
-       return diff;
+        return diff;
     };
 
     _.cloneCleaner = function(obj) {

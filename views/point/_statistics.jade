@@ -1,41 +1,67 @@
-h2
-  span statistic
-  &nbsp;
-  span.btn.btn-xs.btn-warning clear
+div(ng-controller='PointStatisticsCtrl')
+  h2
+    span statistics
+    &nbsp;
+    span.btn.btn-xs.btn-warning clear
 
-table.table#vast-statistic
-  thead
-    tr
-      th event\vast file
-      th inline
-      th wrapper 1
-      th wrapper 2
-  tbody
-    tr
-      th load
-      td
-        .label.label-primary 0
-        br
-        span -- -- -- --:--:--
-      td
-        .label.label-primary 0
-        br
-        span -- -- -- --:--:--
-      td
-        .label.label-primary 0
-        br
-        span -- -- -- --:--:--
-    tr
-      th Impression
-      td
-        .label.label-primary 0
-        br
-        span -- -- -- --:--:--
-      td
-        .label.label-primary 0
-        br
-        span -- -- -- --:--:--
-      td
-        .label.label-primary 0
-        br
-        span -- -- -- --:--:--
+  table.table.table-condensed#vast-statistic
+    thead
+      tr.active
+        th event\vast file
+        th(ng-repeat="(vastKey,vast) in point.vastStatistics")
+          div {{vastKey}}
+    tbody
+      tr.active
+        th.text-center(colspan="{{getVastCount(point.vastStatistics)}}") ad events
+      tr(ng-repeat="event in getEventsName(point.vastStatistics)")
+        th {{event}}
+        td(ng-repeat="(vastKey,vast) in point.vastStatistics")
+          div
+            .label.label-primary {{ getEventCount(vast,event)}}
+            | &nbsp;&nbsp;
+            span -- -- -- --:--:--
+    tbody
+      tr.active
+        th.text-center(colspan="{{getVastCount(point.vastStatistics)}}") creatives
+    tbody(ng-repeat="creative_index in getCreativeCount(point.vastStatistics)")
+      tr.active
+        th.text-center(colspan="{{getVastCount(point.vastStatistics)}}") # {{creative_index}} creative
+      tr.active
+        th.text-center(colspan="{{getVastCount(point.vastStatistics)}}") tracking events
+      tr(ng-repeat="event in getCreativeEventsName(point.vastStatistics,creative_index)")
+        th {{event}}
+        td(ng-repeat="(vastKey,vast) in point.vastStatistics")
+          div(ng-if="getCreative(vast,creative_index)")
+            .label.label-primary {{ getCreativeEventCount(vast,creative_index,event)}}
+            | &nbsp;&nbsp;
+            span -- -- -- --:--:--
+          div(ng-if="!getCreative(vast,creative_index)")
+            span ---
+      tr.active
+        th.text-center(colspan="{{getVastCount(point.vastStatistics)}}") click events
+      tr(ng-repeat="event in getCreativeEventsName(point.vastStatistics,creative_index,'clickPoints')")
+        th {{event}}
+        td(ng-repeat="(vastKey,vast) in point.vastStatistics")
+          div(ng-if="getCreative(vast,creative_index)")
+            .label.label-primary {{ getCreativeEventCount(vast,creative_index,event,'clickPoints')}}
+            | &nbsp;&nbsp;
+            span -- -- -- --:--:--
+          div(ng-if="!getCreative(vast,creative_index)")
+            span ---
+
+      tr.active
+        th.text-center(colspan="{{getVastCount(point.vastStatistics)}}") MediaFiles
+
+      tbody(ng-repeat="mediafile_index in getMediaFilesCount(vastStatistics,creative_index)")
+        tr.active
+          th.text-center(colspan="{{getVastCount(point.vastStatistics)}}") # {{mediafile_index}} MediaFile events
+
+        //tr(ng-repeat="event in getCreativeEventsName(point.vastStatistics,creative_index,mediafile_index)")
+          th {{event}}
+          td(ng-repeat="(vastKey,vast) in point.vastStatistics")
+            div(ng-if="getCreative(vast,creative_index)")
+              .label.label-primary {{ getCreativeEventCount(vast,creative_index,event,'clickPoints')}}
+              | &nbsp;&nbsp;
+              span -- -- -- --:--:--
+            div(ng-if="!getCreative(vast,creative_index)")
+              span ---

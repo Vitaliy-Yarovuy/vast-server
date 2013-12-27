@@ -1,20 +1,8 @@
 app.directive('ngVastXmlView', function ($compile, $timeout, $http) {
 
-    var injection = "alert('not load')";
-
     function getUrl(id_point, id_vast){
         return location.origin + "/point/"+ id_point + "/vast/" + id_vast + "/vast.xml";
     }
-
-    function safeTagsRegex(str) {
-        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    }
-
-    $http.get("/libs/xmltree.js").success(function(script) {
-        injection = script;
-    });
-
-    var count  = 0 ;
 
     return {
         scope: false,
@@ -32,7 +20,6 @@ app.directive('ngVastXmlView', function ($compile, $timeout, $http) {
                     });
                 };
 
-//            updateView();
             scope.$watch(attrs.ngVastXmlView,_.debounce(function(vast){
                 updateView();
             },300), true);

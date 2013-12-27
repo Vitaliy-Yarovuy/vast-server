@@ -6,7 +6,7 @@ block content
   script!= 'window.modelLinks = '+JSON.stringify(modelLinks)+';'
   script!= 'window.modelEnums = '+JSON.stringify(modelEnums)+';'
 
-  .row(ng-controller='PointCtrl')
+  .row
     .col-md-6
       include _settings
 
@@ -17,7 +17,10 @@ block content
 
 
 block scripts
-  link(rel='stylesheet', href="/libs/google-code-prettify/src/prettify.css")
-  script(src="/libs/google-code-prettify/src/prettify.js", defer="defer")
+  //link(rel='stylesheet', href="/libs/google-code-prettify/src/prettify.css")
+  //script(src="/libs/google-code-prettify/src/prettify.js", defer="defer")
   script(src="/js/pages/point/app.js")
+  script(src="/js/pages/point/controllers/settings.js")
+  script(src="/js/pages/point/controllers/views.js")
+  script(src="/js/pages/point/controllers/statistics.js")
 
