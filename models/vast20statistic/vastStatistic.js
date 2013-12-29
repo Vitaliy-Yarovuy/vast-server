@@ -63,7 +63,7 @@ VastStatistic.prototype.updateStatisticPoints = function(){
             trackingEvents = linear.trackingEvents;
             if(trackingEvents){
                 _.forEach(trackingEvents.settings, function(value, key){
-                    setExistOrCreate(newTrackingPoints, key , trackingPoints);
+                    setExistOrCreate(newTrackingPoints, key.toLowerCase() , trackingPoints);
                 },this);
             }
 
@@ -71,7 +71,7 @@ VastStatistic.prototype.updateStatisticPoints = function(){
             videoClicks = linear.videoClicks;
             if(trackingEvents){
                 _.forEach(videoClicks.settings, function(value, key){
-                    setExistOrCreate(newClickPoints, key , clickPoints);
+                    setExistOrCreate(newClickPoints, key.toLowerCase() , clickPoints);
                 },this);
             }
 
