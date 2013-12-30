@@ -13,5 +13,8 @@ StatisticPoint.prototype.track = function(data){
     this.items.push(data);
 };
 
+StatisticPoint.prototype.clear = function(){
+    this.items = [];
+};
 
 exports.StatisticPoint = StatisticPoint;

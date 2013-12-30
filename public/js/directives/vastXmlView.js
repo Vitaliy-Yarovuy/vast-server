@@ -1,7 +1,7 @@
 app.directive('ngVastXmlView', function ($compile, $timeout, $http) {
 
     function getUrl(id_point, id_vast){
-        return location.origin + "/point/"+ id_point + "/vast/" + id_vast + "/vast.xml";
+        return location.origin + "/point/"+ id_point + "/vast/" + id_vast + "/vast.xml?no_track=true";
     }
 
     return {

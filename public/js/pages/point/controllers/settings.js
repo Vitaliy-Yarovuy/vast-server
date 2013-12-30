@@ -1,4 +1,3 @@
-
 app.controller('PointSettingsCtrl',function($scope, $rootScope,socket, videoHelper, feathersClient, modelsHelper) {
     var prevPoint;
 

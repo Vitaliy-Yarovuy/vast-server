@@ -9,7 +9,8 @@ div(ng-controller='PointViewsCtrl')
       .input-group.input-group-sx
         input(type="text", class="form-control", value="{{getVastLink(vast)}}", readonly=true)
         span.input-group-btn
-          a.btn.btn-default(type="button",href="{{getVastLink(vast)}}", target="_blank") open
+          span.btn.btn-default(ng-click="select($event)") select
+          a.btn.btn-default(type="button",href="{{getVastLink(vast)}}?no_track=true", target="_blank") open
       br
       //<?prettify lang=xml?>
       //pre.code.prettyprint(ng-vast-xml-view="vast", ng-point="point")= '<?xml version="1.0"?>\n<nobanner></nobanner>'

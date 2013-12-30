@@ -44,5 +44,10 @@ ServiceFactory.prototype.build = function (Model) {
     return this.services[key];
 };
 
+ServiceFactory.prototype.get = function(Model){
+    var key = Model.prototype.constructor,service;
+    return this.services[key];
+};
+
 exports.serviceFactory = new ServiceFactory();
 

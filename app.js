@@ -7,7 +7,7 @@
 var feathers = require('feathers');
 var _ = require('lodash');
 var vidStreamer = require("vid-streamer");
-var routes = require('./routes');
+
 
 var vast20 = require("./models/vast20");
 var vast20statistic = require("./models/vast20statistic");
@@ -17,6 +17,7 @@ var http = require('http');
 var path = require('path');
 var port = process.env.PORT || 3000;
 var app = feathers();
+var routes = require('./routes')({app: app});
 
 // all environments
 app.set('port', port);
@@ -38,6 +39,12 @@ app.configure(feathers.socketio());
 app.locals.mediaFileHelper = require('./helpers/mediafile').mediaFileHelper;
 app.locals.vastUrlHelper = require('./helpers/vastUrl').vastUrlHelper;
 
+// for feathers services add clear method
+_.extend(app, {
+    methods: ['find', 'get', 'create', 'update', 'remove', 'clear']
+});
+
+
 app.use('/testpoints', services.testPointService);
 console.log('create service on url' ,'/testpoints');
 
@@ -47,7 +54,7 @@ _.each(vast20,function(Model,key){
         console.log('create service on url' ,'/vast20/'+key.toLowerCase());
     }
 });
-app.use('/vast20statistic', services.serviceFactory.build(vast20statistic.VastStatistic));
+app.use('/vast20statistic', services.vast20StatisticService);
 console.log('create service on url' ,'/vast20statistic ');
 
 
@@ -79,3 +86,4 @@ app.listen(port, function(){
   console.log('Express server listening on port ' + port);
 });
 
+exports.app = app;

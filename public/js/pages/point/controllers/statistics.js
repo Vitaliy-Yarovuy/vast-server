@@ -1,4 +1,4 @@
-app.controller('PointStatisticsCtrl',function($scope ) {
+app.controller('PointStatisticsCtrl',function($scope, $rootScope, feathersClient ) {
 
     $scope.getEventsName = function(vastStatistics){
         var events = [];
@@ -24,14 +24,14 @@ app.controller('PointStatisticsCtrl',function($scope ) {
         return events;
     };
 
-    $scope.getEventCount = function(vast, event){
-        return vast.points[event] ? vast.points[event].items.length: 0;
+    $scope.getEvents = function(vast, event){
+        return vast.points[event] ? vast.points[event].items: [];
     };
 
-    $scope.getCreativeEventCount = function(vast, index, event, points){
+    $scope.getCreativeEvents = function(vast, index, event, points){
         points = points || "trackingPoints";
         var creative = _.values(vast.creatives)[index];
-        return (creative && creative[points][event]) ? creative[points][event].items.length: 0;
+        return (creative && creative[points][event]) ? creative[points][event].items: [];
     };
 
     $scope.getVastCount = function(vastStatistics){
@@ -58,5 +58,29 @@ app.controller('PointStatisticsCtrl',function($scope ) {
         return _.values(vast.creatives)[index];
     };
 
+    $scope.getLastTime = function(items){
+        var last = items[items.length-1];
+        return new Date(last.data.time);
+    };
+
+
+    var vast20statisticClient = feathersClient.getClient("vast20statistic",{
+        updated: function(vast20statistic){
+            var statistics =  $rootScope.point.vastStatistics;
+            _.each(statistics, function(vastStatistic, key){
+                if(vastStatistic.id == vast20statistic.id){
+                    statistics[key] = vast20statistic;
+                }
+            });
+        }
+    });
+
+    $scope.clear = function(){
+        var statistics =  $rootScope.point.vastStatistics;
+        _.each(statistics, function(vastStatistic, key){
+            vast20statisticClient.clear(vastStatistic.id, function(err, data){
+            });
+        });
+    };
 
 });

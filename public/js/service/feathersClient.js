@@ -31,6 +31,10 @@ app.factory('feathersClient',function ($rootScope, socket){
                     remove:function(id, params, callback){
                         var method = modelName+'::remove';
                         socket.emit.apply(socket, [method].concat([].slice.call(arguments)));
+                    },
+                    clear:function(id, callback){
+                        var method = modelName+'::clear';
+                        socket.emit.apply(socket, [method].concat([].slice.call(arguments)));
                     }
                 }
             }

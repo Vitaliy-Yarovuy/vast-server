@@ -22,6 +22,7 @@ function VastStatistic(id, vast){
     this.vast = vast;
     this.points = {};
     this.creatives = {};
+    this.sessions = [];
     this.updateStatisticPoints();
 }
 
@@ -101,20 +102,40 @@ VastStatistic.prototype.updateStatisticPoints = function(){
 };
 
 
-VastStatistic.prototype.trackEvent = function(event, data){
-    this.points[event].track(data);
+VastStatistic.prototype.eventProcessing = function(item){
+    var sessionID = item.data.sessionID;
+    if(this.sessions.indexOf(sessionID)  == -1){
+        this.sessions.push(sessionID);
+    }
 };
 
-VastStatistic.prototype.trackCreativeEvent = function(id_creative, event, data){
-    this.creatives[id_creative].trackingPoints[event].track(data);
+VastStatistic.prototype.trackEvent = function(event, item){
+    this.eventProcessing(item);
+    this.points[event].track(item);
 };
 
-VastStatistic.prototype.trackCreativeClickEvent = function(id_creative, event, data){
-    this.creatives[id_creative].clickPoints[event].track(data);
+VastStatistic.prototype.trackCreativeEvent = function(id_creative, event, item){
+    this.eventProcessing(item);
+    this.creatives[id_creative].trackingPoints[event].track(item);
 };
 
+VastStatistic.prototype.trackCreativeClickEvent = function(id_creative, event, item){
+    this.eventProcessing(item);
+    this.creatives[id_creative].clickPoints[event].track(item);
+};
 
-
-
+VastStatistic.prototype.clear = function(){
+    _.each(this.points,function(point){
+        point.clear();
+    });
+    _.each(this.creatives,function(creative){
+        _.each(creative.clickPoints,function(point){
+            point.clear();
+        });
+        _.each(creative.trackingPoints,function(point){
+            point.clear();
+        });
+    });
+};
 
 exports.VastStatistic = VastStatistic;
