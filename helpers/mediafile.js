@@ -3,8 +3,9 @@ var video = require('../models/video');
 var vast20 = require("../models/vast20");
 
 var mediaFileHelper = {
-    getDelivery: function(value){
-        return vast20.MediaFile.delivery[value] || vast20.MediaFile.delivery[0];
+    host: "/",
+    setHost: function(host){
+        this.host = host;
     },
     getMediaDataFromVideo: function(id_video, types){
         var videoItem = video.lists[id_video];
@@ -22,7 +23,7 @@ var mediaFileHelper = {
             src = src.replace("/video/","/video-stream/");
         }
         src += "?vast=" + vast.id;
-        return src;
+        return this.host + src.substr(1);
     }
 };
 

@@ -9,13 +9,13 @@ var vastUrlHelper = {
         this.host = host;
     },
     getVastEventUrl: function(point, vast, event){
-        return this.host + "/point/"+point.id+"/statistic/"+vast.id+"/event/"+event;
+        return this.host + "point/"+point.id+"/statistic/"+vast.id+"/event/"+event;
     },
     getCreativeTrackingEventUrl: function(point, vast, creative, event){
-        return this.host + "/point/"+point.id+"/statistic/"+vast.id+"/creative/"+creative.id+"/tracking_event/"+event;
+        return this.host + "point/"+point.id+"/statistic/"+vast.id+"/creative/"+creative.id+"/tracking_event/"+event;
     },
     getCreativeClickEventUrl: function(point, vast, creative, event){
-        return this.host + "/point/"+point.id+"/statistic/"+vast.id+"/creative/"+creative.id+"/click_event/"+event;
+        return this.host + "point/"+point.id+"/statistic/"+vast.id+"/creative/"+creative.id+"/click_event/"+event;
     }
 };
 

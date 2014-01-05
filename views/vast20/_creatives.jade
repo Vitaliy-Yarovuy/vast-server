@@ -21,9 +21,9 @@ Creatives
                 ClickTracking=vastUrlHelper.getCreativeClickEventUrl(point,vast,creative,"clicktracking")
               if linear.videoClicks.settings.CustomClick
                 CustomClick=vastUrlHelper.getCreativeClickEventUrl(point,vast,creative,"customclick")
-          mediafiles
+          MediaFiles
             each mediafile in linear.mediaFiles
               each mediaData in mediaFileHelper.getMediaDataFromVideo(mediafile.video, mediafile.types)
-                - var delivery = mediaFileHelper.getDelivery(mediafile.settings.delivery);
-                mediafile(delivery= delivery, type= mediaData.type, bitrate= mediaData.bit_rate, maintainAspectRatio= mediafile.settings.maintainAspectRatio, scalable= mediafile.settings.scalable, width= mediaData.width, height= mediaData.height)
+                - var delivery = mediafile.settings.delivery;
+                MediaFile(delivery= delivery, type= mediaData.type, bitrate= mediaData.bit_rate, maintainAspectRatio= mediafile.settings.maintainAspectRatio, scalable= mediafile.settings.scalable, width= mediaData.width, height= mediaData.height)
                   = mediaFileHelper.getUrl(mediaData, delivery, vast)

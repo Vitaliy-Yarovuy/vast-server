@@ -2,6 +2,7 @@ var video = require('../models/video');
 var vast20 = require('../models/vast20');
 var vast20statistic = require('../models/vast20statistic');
 var vastUrlHelper = require('../helpers/vastUrl').vastUrlHelper;
+var mediaFileHelper = require('../helpers/mediafile').mediaFileHelper;
 var path = require('path');
 var services = require('../services')
 var _ = require('lodash');
@@ -44,9 +45,13 @@ var exps = {
         if (req.app.settings.port != 80) {
             host += ":" + req.app.settings.port;
         }
+        host += "/";
         vastUrlHelper.setHost(host);
+        mediaFileHelper.setHost(host);
 
         res.header('Content-Type', 'application/xml');
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
         if (vast) {
             res.render('vast20/vast', {
                 point: point,
@@ -69,6 +74,8 @@ var exps = {
 
         var vastStatistic = vast20statistic.VastStatistic.collections["statistic_" + vast_id];
         vastStatistic.trackEvent(event_id, new vast20statistic.StatisticItem(req));
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
         res.send("tracked!!!");
         emitUpdate(vastStatistic);
     },
@@ -82,6 +89,8 @@ var exps = {
         var vastStatistic = vast20statistic.VastStatistic.collections["statistic_" + vast_id];
         var factory = app.services["vast20statistic"];
         vastStatistic.trackCreativeEvent(creative_id, event_id, new vast20statistic.StatisticItem(req));
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
         res.send("tracked!!!");
         emitUpdate(vastStatistic);
     },
@@ -94,6 +103,8 @@ var exps = {
 
         var vastStatistic = vast20statistic.VastStatistic.collections["statistic_" + vast_id];
         vastStatistic.trackCreativeClickEvent(creative_id, event_id, new vast20statistic.StatisticItem(req));
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
         res.send("tracked!!!");
         emitUpdate(vastStatistic);
     }

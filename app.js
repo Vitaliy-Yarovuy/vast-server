@@ -32,8 +32,12 @@ app.use(feathers.cookieParser('your secret here'));
 app.use(feathers.session());
 app.use(app.router);
 app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+});
 app.use(feathers.static(path.join(__dirname, 'public')));
-
 app.configure(feathers.socketio());
 
 app.locals.mediaFileHelper = require('./helpers/mediafile').mediaFileHelper;
@@ -56,6 +60,8 @@ _.each(vast20,function(Model,key){
 });
 app.use('/vast20statistic', services.vast20StatisticService);
 console.log('create service on url' ,'/vast20statistic ');
+
+
 
 
 
