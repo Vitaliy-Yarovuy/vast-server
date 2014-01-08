@@ -5,17 +5,33 @@ var vast20statistic = require("../models/vast20statistic");
 
 var vastUrlHelper = {
     host: "/",
-    setHost: function(host){
+    setHost: function (host) {
         this.host = host;
     },
-    getVastEventUrl: function(point, vast, event){
-        return this.host + "point/"+point.id+"/statistic/"+vast.id+"/event/"+event;
+    getVastUrl: function (point, vast) {
+        if(!point || !vast){
+            return this.host + "404.html";
+        }
+        return this.host + "point/" + point.id + "/vast/" + vast.id + "/vast.xml";
     },
-    getCreativeTrackingEventUrl: function(point, vast, creative, event){
-        return this.host + "point/"+point.id+"/statistic/"+vast.id+"/creative/"+creative.id+"/tracking_event/"+event;
+    getVastEventUrl: function (point, vast, event) {
+        if(!point || !vast || !event){
+            return this.host + "404.html";
+        }
+        return this.host + "point/" + point.id + "/statistic/" + vast.id + "/event/" + event;
     },
-    getCreativeClickEventUrl: function(point, vast, creative, event){
-        return this.host + "point/"+point.id+"/statistic/"+vast.id+"/creative/"+creative.id+"/click_event/"+event;
+    getCreativeTrackingEventUrl: function (point, vast, creative, event) {
+        if(!point || !vast || !event || !creative){
+           return this.host + "404.html";
+        }
+        return this.host + "point/" + point.id + "/statistic/" + vast.id + "/creative/" + creative.id + "/tracking_event/" + event;
+
+    },
+    getCreativeClickEventUrl: function (point, vast, creative, event) {
+        if(!point || !vast || !event || !creative){
+            return this.host + "404.html";
+        }
+        return this.host + "point/" + point.id + "/statistic/" + vast.id + "/creative/" + creative.id + "/click_event/" + event;
     }
 };
 

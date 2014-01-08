@@ -7,10 +7,10 @@
                 links = this.modelLinks[modelName] || [];
             links.forEach(function(link){
                 var data = lObj[link];
-                if(!data){
+                if(!data || _.isString(data)){
                     return ;
                 }
-                if(data instanceof Array){
+                if(_.isArray(data)){
                     lObj[link] = data.map(function(item){ return item.id});
                 }else{
                     lObj[link] = data.id;

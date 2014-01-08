@@ -12,14 +12,16 @@ VAST(version='2.0', xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance', xsi:n
           Survey=vastUrlHelper.getVastEventUrl(point,vast,'survey')
         Error=vastUrlHelper.getVastEventUrl(point,vast,'error')
         Impression=vastUrlHelper.getVastEventUrl(point,vast,'impression')
+        - var creatives = inLine.creatives
         include _creatives
         include _extensions
     if vast.wrapper
       - var wrapper = vast.wrapper;
       Wrapper
-        AdSystem(version=(inLine.settings.version||undefined))= inLine.settings.AdSystem
-        VASTAdTagURI #
-        Error #
-        Impression #
+        AdSystem(version=(wrapper.settings.version||undefined))= wrapper.settings.AdSystem
+        Error=vastUrlHelper.getVastEventUrl(point,vast,'error')
+        Impression=vastUrlHelper.getVastEventUrl(point,vast,'impression')
+        VASTAdTagURI=vastUrlHelper.getVastUrl(point, wrapper.innerVast )
+        - var creatives = wrapper.creatives
         include _creatives
         include _extensions

@@ -36,126 +36,21 @@ div(ng-controller='PointSettingsCtrl')
               .form-group
                 label(for="inLine_Survey") Survey
                 input.form-control.input-sm#inLine_Survey( type="text", ng-model="vast.inLine.settings.Survey")
-          fieldset(ng-if="vast.inLine")
-            legend Creatives:
-            table.table.table-hover.td-pos-r
-              tr
-                th #
-                th(width="98%") Creative...
-                th(width="0")
-                  span.pos-a.tr-5 action
-              tr(ng-repeat="creative in vast.inLine.creatives")
-                td {{$index+1}}
-                td
-                  .row
-                    .col-xs-4
-                      .form-group
-                        label(for="creative_id") id
-                        input.form-control.input-sm#creative_id( type="text", ng-model="creative.settings.id")
-                    .col-xs-4
-                      .form-group
-                        label(for="creative_sequence") sequence
-                        input.form-control.input-sm#creative_sequence( type="text", ng-model="creative.settings.sequence")
-                    .col-xs-4
-                      .form-group
-                        label(for="creative_AdID") AdID
-                        input.form-control.input-sm#creative_AdID( type="text", ng-model="creative.settings.AdID")
-                  fieldset(ng-if="creative.linear")
-                    legend.sm Linear:
-                    .row
-                      .col-xs-6
-                        .form-group
-                          label(for="linear_Duration") Duration
-                          input.form-control.input-sm#linear_Duration( type="text", ng-model="creative.linear.settings.Duration")
-                      .col-xs-6
-                        .form-group
-                          label(for="linear_AdParameters") AdParameters
-                          input.form-control.input-sm#linear_AdParameters( type="text", ng-model="vast.inLine.settings.AdParameters")
-                    .row
-                      .col-xs-4
-                        fieldset(ng-if="creative.linear.videoClicks")
-                          legend.sm VideoClicks:
-                          div
-                            .checkbox(ng-repeat="(key,set) in creative.linear.videoClicks.settings" )
-                              label
-                                input(type="checkbox", ng-model="creative.linear.videoClicks.settings[key]")
-                                | {{key}}
-                      .col-xs-8
-                        fieldset(ng-if="creative.linear.trackingEvents",style="margin-top:11px;")
-                          legend.sm TrackingEvents:
-                          div.col-c-2
-                            .checkbox(ng-repeat="(key,set) in creative.linear.trackingEvents.settings" )
-                              label
-                                input(type="checkbox", ng-model="creative.linear.trackingEvents.settings[key]")
-                                span {{key}}
-                  fieldset
-                    legend.sm MediaFiles:
-                    table.table.table-hover.td-pos-r
-                      tr
-                        th #
-                        th(width="98%") MediaFile...
-                        th(width="0")
-                          span.pos-a.tr-5 action
-                      tr(ng-repeat="mediaFile in creative.linear.mediaFiles")
-                        td {{$index+1}}
-                        td
-                          .row
-                            .col-xs-6
-                              .form-group
-                                label(for="mediaFile_id") id
-                                input.form-control.input-sm#mediaFile_id( type="text", ng-model="mediaFile.settings.id")
-                              .form-group
-                                label(for="mediaFile_apiFramework") apiFramework
-                                input.form-control.input-sm#mediaFile_apiFramework( type="text", ng-model="mediaFile.settings.apiFramework")
-                            .col-xs-6
-                              .form-group
-                                label(for="mediaFile_delivery") delivery
-                                select.form-control.input-sm#mediaFile_delivery( ng-model="mediaFile.settings.delivery", ng-options="item for item in modelEnums.delivery")
-                              .checkbox
-                                label
-                                  input(type="checkbox", ng-model="mediaFile.settings.maintainAspectRatio")
-                                  | maintainAspectRatio
-                              .checkbox
-                                label
-                                  input(type="checkbox", ng-model="mediaFile.settings.scalable")
-                                  | scalable
-                              .btn-group.width-100(ng-select-video="mediaFile.video", ng-select-video-lists="videoLists")
-                                button.btn.dropdown-toggle(data-toggle="dropdown")
-                                  span(ng-select-video-btn) select video
-                                  | &nbsp;
-                                  span.pull-right.caret(style="margin-top:8px;")
-                                ul.dropdown-menu.r-0( role="menu")
-                                  li(ng-repeat="(key,video) in videoLists")
-                                    a(href="#",ng-select-video-item="key")
-                                      h5 {{key}}
-                          br.small
-                          .row(ng-if="mediaFile.video")
-                            .col-xs-6
-                              .form-group
-                                label(for="mediaFile_width") width
-                                input.form-control.input-sm#mediaFile_width(disabled, type="text", value="{{getVideoWidth(mediaFile.video)}}")
-                              .form-group
-                                label(for="mediaFile_height") height
-                                input.form-control.input-sm#mediaFile_height(disabled, type="text", value="{{getVideoHeight(mediaFile.video)}}")
-                            .col-xs-6
-                              .form-group
-                                label(for="mediaFile_bitrate") bitrate
-                                input.form-control.input-sm#mediaFile_bitrate(disabled, type="text", value="{{getVideoBitRate(mediaFile.video)}}")
-                              .form-group
-                                label(for="mediaFile_format") format
-                                br
-                                .btn-group(ng-select-video-type="mediaFile.types")
-                                  select.form-control.input-sm#mediaFile_format(multiple)
-                                    option(ng-repeat="type in getVideoFormat(mediaFile.video)", value="{{$index}}")
-                                      | {{type}}
-                                  button.btn.btn-primary Select All
-                        td
-                          button.btn.btn-xs.btn-danger.pos-a.tr-5(disabled=true) remove
-                      tr
-                        td.text-center(colspan="3")
-                          .btn.btn-sm.btn-success(disabled=true) add
-                td
-                  button.btn.btn-xs.btn-danger.pos-a.tr-5(disabled=true) remove
-              tr
-                td.text-center(colspan="3")
-                  .btn.btn-sm.btn-success(disabled=true) add
+          include _settings_creatives
+        fieldset(ng-if="vast.wrapper")
+          legend Wrapper:
+          .row
+            .col-xs-4
+              .form-group
+                label(for="inLine_AdSystem") AdSystem
+                input.form-control.input-sm#inLine_AdSystem( type="text", ng-model="vast.wrapper.settings.AdSystem")
+              .form-group
+                label(for="inLine_version") version
+                input.form-control.input-sm#inLine_version( type="text", ng-model="vast.wrapper.settings.version")
+            .col-xs-4
+              .form-group
+                label(for="inner_Vast") inner Vast
+                select.form-control.input-sm#inner_Vast( ng-model="vast.wrapper.innerVast")
+                  option(ng-repeat="(key,item) in point.vasts | excludeItems:'key':vastKey", value="{{item.id}}") {{key}}
+          include _settings_creatives
+

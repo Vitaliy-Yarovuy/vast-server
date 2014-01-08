@@ -50,10 +50,10 @@ app.factory('modelsHelper',function ($rootScope, feathersClient){
             var isUpdate = false;
             if(diff.creatives){
                 isUpdate = isUpdate || !!_.filter(diff.creatives,function(creative,index){
-                    return this.updateCreative(creative, nowInLine.creatives[index]);
+                    return this.updateCreative(creative, nowWrapper.creatives[index]);
                 },this).length;
             }
-            if(diff.settings){
+            if(diff.settings || diff.innerVast){
                 var wrapper = utils.restoreLink("Wrapper", nowWrapper);
                 wrapperClient.update([wrapper.id,wrapper],function(err, wrapper){
                     console.log("wrapper update", wrapper);

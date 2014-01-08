@@ -5,7 +5,8 @@ var BaseModel = require("./../baseModel").BaseModel;
 function Wrapper(id, settings) {
     BaseModel.call(this, id);
     this.settings = _.merge({
-        AdSystem: ""
+        AdSystem: "",
+        version:null
     }, settings);
     this.innerVast = null;
     this.creatives = [];
