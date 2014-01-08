@@ -10,7 +10,7 @@ function Wrapper(id, settings) {
     }, settings);
     this.innerVast = null;
     this.creatives = [];
-    this.extensions = [];
+    this.extensions = null;
 }
 
 utils.extend(Wrapper, BaseModel);
@@ -22,10 +22,9 @@ Wrapper.prototype.addCreative = function(creative){
     this.creatives.push(creative.getId ? creative.getId() : creative);
 };
 
-Wrapper.prototype.addExtension = function(extension){
-    this.extensions.push(extension.getId ? extension.getId() : extension);
+Wrapper.prototype.setExtensions = function(extensions){
+    this.extensions = extensions.getId ? extensions.getId() : extensions;
 };
-
 
 Wrapper.prototype.setInnerVast = function(vast){
     this.innerVast = vast.getId ? vast.getId() : vast;

@@ -13,7 +13,7 @@ function InLine(id, settings) {
         Survey: null
     }, settings);
     this.creatives = [];
-    this.extensions = [];
+    this.extensions = null;
 }
 
 utils.extend(InLine, BaseModel);
@@ -24,8 +24,8 @@ InLine.prototype.addCreative = function(creative){
     this.creatives.push(creative.getId ? creative.getId() : creative);
 };
 
-InLine.prototype.addExtension = function(extension){
-    this.extensions.push(extension.getId ? extension.getId() : extension);
+InLine.prototype.setExtensions = function(extensions){
+    this.extensions = extensions.getId ? extensions.getId() : extensions;
 };
 
 exports.InLine = InLine;

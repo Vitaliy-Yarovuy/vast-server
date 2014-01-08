@@ -28,6 +28,7 @@ function generateBaseInLine(id){
         AdSystem: "AdFox.Ru",
         AdTitle: "GPMD"
     });
+    inLine.setExtensions(new vast20.Extensions(null,{}));
     vast.setInLine(inLine);
     inLine.addCreative(generateBaseCreative(true));
     return vast;
@@ -41,6 +42,7 @@ function generateBaseWrapper(id){
         AdSystem: "AdFox.Ru",
         AdTitle: "GPMD"
     });
+    wrapper.setExtensions(new vast20.Extensions(null,{}));
     vast.setWrapper(wrapper);
     wrapper.addCreative(generateBaseCreative(false));
     return vast;

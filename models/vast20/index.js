@@ -7,3 +7,4 @@ exports.Linear = require("./linear").Linear;
 exports.VideoClicks = require("./videoclicks").VideoClicks;
 exports.MediaFile = require("./mediafile").MediaFile;
 exports.TrackingEvents = require("./trackingevents").TrackingEvents;
+exports.Extensions = require("./extensions").Extensions;
