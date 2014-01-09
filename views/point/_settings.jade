@@ -37,6 +37,7 @@ div(ng-controller='PointSettingsCtrl')
                 label(for="inLine_Survey") Survey
                 input.form-control.input-sm#inLine_Survey( type="text", ng-model="vast.inLine.settings.Survey")
           include _settings_creatives
+          include _settings_extensions
         fieldset(ng-if="vast.wrapper")
           legend Wrapper:
           .row
@@ -53,4 +54,5 @@ div(ng-controller='PointSettingsCtrl')
                 select.form-control.input-sm#inner_Vast( ng-model="vast.wrapper.innerVast")
                   option(ng-repeat="(key,item) in point.vasts | excludeItems:'key':vastKey", value="{{item.id}}") {{key}}
           include _settings_creatives
+          include _settings_extensions
 

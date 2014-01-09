@@ -8,10 +8,11 @@ function Extensions(id, settings) {
         startTime: 0,
         skipTime: 0,
         skipTime2: 0,
-        linkTxt: 0,
+        linkTxt: "",
         isClickable: true,
         skipAd: true,
-        addClick: true
+        addClick: true,
+        controls: null
     }, settings);
 }
 

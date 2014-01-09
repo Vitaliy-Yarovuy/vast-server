@@ -1,0 +1,8 @@
+fieldset(ng-if="vast.inLine||vast.wrapper")
+  legend Extensions:
+  .row
+    .col-xs-4
+      .checkbox(ng-repeat="(key,set) in (vast.inLine||vast.wrapper)['extensions'].settings | items:['isClickable','skipAd','addClick','controls'] " )
+        label
+          input(type="checkbox", ng-three-state-checkbox="set")
+          | {{key}}
