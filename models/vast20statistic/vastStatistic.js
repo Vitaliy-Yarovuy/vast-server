@@ -21,6 +21,7 @@ function VastStatistic(id, vast){
     BaseModel.call(this,id);
     this.vast = vast;
     this.points = {};
+    this.extensionPoints = {};
     this.creatives = {};
     this.sessions = [];
     this.updateStatisticPoints();
@@ -30,17 +31,32 @@ utils.extend(VastStatistic, BaseModel);
 VastStatistic.prototype.idPrefix = "statistic_vast_";
 
 VastStatistic.prototype.updateStatisticPoints = function(){
-    var newPoints = {},
-        completeVast = this.vast.toJSON(),
-        childVast = completeVast.inLine || completeVast.wrapper;
+    this.updatePoints();
+    this.updateExtensions();
+    this.updateCreatives();
+};
+
+
+VastStatistic.prototype.updatePoints = function(){
+    var newPoints = {};
 
     setExistOrCreate(newPoints, "load", this.points);
     setExistOrCreate(newPoints, "impression", this.points);
     setExistOrCreate(newPoints, "error", this.points);
-    if(this.vast.inLine){
-        setExistOrCreate(newPoints, "survey", this.points);
-    }
     this.points = newPoints;
+};
+
+VastStatistic.prototype.updateExtensions = function(){
+    var newPoints = {};
+
+    setExistOrCreate(newPoints, "skipAd", this.extensionPoints);
+    setExistOrCreate(newPoints, "addClick", this.extensionPoints);
+    this.extensionPoints = newPoints;
+};
+
+VastStatistic.prototype.updateCreatives = function(){
+    var completeVast = this.vast.toJSON(),
+        childVast = completeVast.inLine || completeVast.wrapper;
 
     childVast.creatives.forEach(function(creative){
         var id_creative = creative.id,
@@ -96,9 +112,7 @@ VastStatistic.prototype.updateStatisticPoints = function(){
         this.creatives[id_creative].trackingPoints = newTrackingPoints;
         this.creatives[id_creative].clickPoints = newClickPoints;
         this.creatives[id_creative].mediaFiles = newMediaFilesStatistic;
-
     },this);
-
 };
 
 
@@ -114,6 +128,11 @@ VastStatistic.prototype.trackEvent = function(event, item){
     this.points[event].track(item);
 };
 
+VastStatistic.prototype.trackExtensionEvent = function(event, item){
+    this.eventProcessing(item);
+    this.extensionPoints[event].track(item);
+};
+
 VastStatistic.prototype.trackCreativeEvent = function(id_creative, event, item){
     this.eventProcessing(item);
     this.creatives[id_creative].trackingPoints[event].track(item);
@@ -125,6 +144,7 @@ VastStatistic.prototype.trackCreativeClickEvent = function(id_creative, event, i
 };
 
 VastStatistic.prototype.clear = function(){
+    this.sessions = [];
     _.each(this.points,function(point){
         point.clear();
     });

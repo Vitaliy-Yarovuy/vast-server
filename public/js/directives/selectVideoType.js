@@ -13,7 +13,9 @@ app.directive('ngSelectVideoType', function ($compile, $timeout, scopeHelper) {
                 $options = $([]),
                 totalCount = 0;
 
-            scope.$watch(attrs.ngSelectVideoType,function(selectValues){
+            scope.$watch(attrs.ngSelectVideoType,update,50);
+
+            function update(selectValues){
                 if(selectValues){
                     $btn.html(selectValues.length == totalCount ? "Deselect All" :"Select All");
                     setTimeout(function(){
@@ -22,7 +24,7 @@ app.directive('ngSelectVideoType', function ($compile, $timeout, scopeHelper) {
                         });
                     },100)
                 }
-            },50);
+            }
 
             $btn.on("click",function(){
                 var action = isSelectAll(scope,attrs.ngSelectVideoType,totalCount) ? "deselect" : "select";
@@ -41,6 +43,7 @@ app.directive('ngSelectVideoType', function ($compile, $timeout, scopeHelper) {
                 $options = $element.find("option");
                 totalCount = $options.length;
                 $select.multiselect({numberDisplayed: 2});
+                update(scope.$eval(attrs.ngSelectVideoType));
             },0);
         }
     };

@@ -10,6 +10,16 @@ app.controller('PointStatisticsCtrl',function($scope, $rootScope, feathersClient
         return events;
     };
 
+    $scope.getExtensionsEventsName = function(vastStatistics){
+        var events = [];
+        _.each(vastStatistics, function(vast){
+            Object.keys(vast.extensionPoints).forEach(function(key){
+                events.indexOf(key) == -1 && events.push(key);
+            });
+        });
+        return events;
+    };
+
     $scope.getCreativeEventsName = function(vastStatistics,index, points){
         points = points || "trackingPoints";
         var events = [];
@@ -26,6 +36,10 @@ app.controller('PointStatisticsCtrl',function($scope, $rootScope, feathersClient
 
     $scope.getEvents = function(vast, event){
         return vast.points[event] ? vast.points[event].items: [];
+    };
+
+    $scope.getExtensionsEvents = function(vast, event){
+        return vast.extensionPoints[event] ? vast.extensionPoints[event].items: [];
     };
 
     $scope.getCreativeEvents = function(vast, index, event, points){

@@ -6,6 +6,9 @@ app.directive('ngStatisticItem', function ($compile, $timeout, $http) {
         if(type=="vast"){
             var event = data[1];
             return "vast.points." + event;
+        } else if(type=="extensions"){
+            var event = data[1];
+            return "vast.extensionPoints." + event;
         } else if(type=="creative"){
             var creativeKey = _.keys(data[0].creatives)[data[1]],
                 points = data[3] || "trackingPoints",
@@ -35,6 +38,9 @@ app.directive('ngStatisticItem', function ($compile, $timeout, $http) {
                     } else {
                         if(type=="vast"){
                             items = scope.getEvents.apply(scope,data);
+                            isFind = true;
+                        }else if(type=="extensions"){
+                            items = scope.getExtensionsEvents.apply(scope,data);
                             isFind = true;
                         } else if(type=="creative" && scope.getCreative.apply(scope,data)){
                             items = scope.getCreativeEvents.apply(scope,data);
