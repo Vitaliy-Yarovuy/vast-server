@@ -1,8 +1,33 @@
 fieldset(ng-if="vast.inLine||vast.wrapper")
   legend Extensions:
   .row
+    .col-xs-3
+      .form-group(ng-repeat="(key,set) in (vast.inLine||vast.wrapper)['extensions'].settings | items:['isClickable','skipAd','addClick','controls'] " )
+        .checkbox
+          label
+            input(type="checkbox", ng-three-state-checkbox="set")
+            | {{key}}
     .col-xs-4
-      .checkbox(ng-repeat="(key,set) in (vast.inLine||vast.wrapper)['extensions'].settings | items:['isClickable','skipAd','addClick','controls'] " )
-        label
-          input(type="checkbox", ng-three-state-checkbox="set")
-          | {{key}}
+      .form-group(ng-repeat="(key,set) in (vast.inLine||vast.wrapper)['extensions'].settings | items:['skipTime','skipTime2'] " )
+        div(ng-model-with-enable="set", data-toggle="buttons")
+          label(for="extensions_{{key}}") {{key}}
+          label.btn.btn-xs.btn-warning.pull-right
+            input(type="checkbox")
+            | enable
+          input.form-control.input-sm(id="extensions_{{key}}", type="number", min="0")
+    .col-xs-4
+      .form-group(ng-repeat="(key,set) in (vast.inLine||vast.wrapper)['extensions'].settings | items:['startTime'] " )
+        div(ng-model-with-enable="set", data-toggle="buttons")
+          label(for="extensions_{{key}}") {{key}}
+          label.btn.btn-xs.btn-warning.pull-right
+            input(type="checkbox")
+            | enable
+          input.form-control.input-sm(id="extensions_{{key}}", type="number", min="0")
+      .form-group(ng-repeat="(key,set) in (vast.inLine||vast.wrapper)['extensions'].settings | items:['linkTxt'] " )
+        div(ng-model-with-enable="set", data-toggle="buttons")
+          label(for="extensions_{{key}}") {{key}}
+          label.btn.btn-xs.btn-warning.pull-right
+            input(type="checkbox")
+            | enable
+          input.form-control.input-sm(id="extensions_{{key}}", type="text")
+

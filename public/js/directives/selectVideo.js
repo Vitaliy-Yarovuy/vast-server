@@ -1,4 +1,4 @@
-app.directive('ngSelectVideo', function ($compile, $timeout, videoHelper) {
+app.directive('ngSelectVideo', function ($compile, $timeout, videoHelper, scopeHelper) {
 
 
     function getVideoView(video){
@@ -20,24 +20,6 @@ app.directive('ngSelectVideo', function ($compile, $timeout, videoHelper) {
         result += "</table>";
         return result;
     }
-
-
-    function setData(scope, path, value, isSilent) {
-        var key,
-            pathEls = path.split("."),
-            element = scope;
-        while (pathEls.length > 1 && element) {
-            element = element[pathEls.shift()];
-        }
-        while (pathEls.length > 1) {
-            key = pathEls.shift();
-            element[key] = {};
-            element = element[key];
-        }
-        element[pathEls.shift()] = value;
-        isSilent || scope.$apply();
-    }
-
 
     return {
         scope: false,
@@ -67,7 +49,7 @@ app.directive('ngSelectVideo', function ($compile, $timeout, videoHelper) {
                             return true;
                         }
                         e.preventDefault();
-                        setData(scope,attrs.ngSelectVideo,key);
+                        scopeHelper.setData(scope,attrs.ngSelectVideo,key);
                     });
                 });
             },0);

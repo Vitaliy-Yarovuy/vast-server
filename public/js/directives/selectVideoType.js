@@ -1,25 +1,8 @@
-app.directive('ngSelectVideoType', function ($compile, $timeout) {
+app.directive('ngSelectVideoType', function ($compile, $timeout, scopeHelper) {
 
     function isSelectAll(scope,attr,count){
         var values = scope.$eval(attr);
         return values && values.length == count;
-    }
-
-
-    function setData(scope, path, value, isSilent) {
-        var key,
-            pathEls = path.split("."),
-            element = scope;
-        while (pathEls.length > 1 && element) {
-            element = element[pathEls.shift()];
-        }
-        while (pathEls.length > 1) {
-            key = pathEls.shift();
-            element[key] = {};
-            element = element[key];
-        }
-        element[pathEls.shift()] = value;
-        isSilent || scope.$apply();
     }
 
     return {
@@ -51,7 +34,7 @@ app.directive('ngSelectVideoType', function ($compile, $timeout) {
 
             $select.on("change",function(){
                 var value = $(this).val() || [];
-                setData(scope, attrs.ngSelectVideoType, value);
+                scopeHelper.setData(scope, attrs.ngSelectVideoType, value);
             });
 
             $timeout(function(){

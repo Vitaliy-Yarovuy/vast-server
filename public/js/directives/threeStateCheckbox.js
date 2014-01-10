@@ -1,21 +1,5 @@
-app.directive('ngThreeStateCheckbox', function ($compile, $timeout) {
+app.directive('ngThreeStateCheckbox', function ($compile, $timeout, scopeHelper) {
     var states = [null,true,false];
-
-    function setData(scope, path, value, isSilent) {
-        var key,
-            pathEls = path.split("."),
-            element = scope;
-        while (pathEls.length > 1 && element) {
-            element = element[pathEls.shift()];
-        }
-        while (pathEls.length > 1) {
-            key = pathEls.shift();
-            element[key] = {};
-            element = element[key];
-        }
-        element[pathEls.shift()] = value;
-        isSilent || scope.$apply();
-    }
 
     return {
         scope: false,
@@ -35,7 +19,7 @@ app.directive('ngThreeStateCheckbox', function ($compile, $timeout) {
                 var state = scope.$eval(model),
                     index = (states.indexOf(state) + states.length + 1) % states.length,
                     newState = states[index];
-                setData(scope,model,newState);
+                scopeHelper.setData(scope,model,newState);
                 e.preventDefault();
             });
         }
