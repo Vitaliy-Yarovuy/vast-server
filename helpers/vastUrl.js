@@ -20,6 +20,12 @@ var vastUrlHelper = {
         }
         return this.host + "point/" + point.id + "/statistic/" + vast.id + "/event/" + event;
     },
+    getVastExtensionEventUrl: function (point, vast, event) {
+        if(!point || !vast || !event){
+            return this.host + "404.html";
+        }
+        return this.host + "point/" + point.id + "/statistic/" + vast.id + "/extension-event/" + event;
+    },
     getCreativeTrackingEventUrl: function (point, vast, creative, event) {
         if(!point || !vast || !event || !creative){
            return this.host + "404.html";

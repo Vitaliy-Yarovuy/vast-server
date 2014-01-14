@@ -14,6 +14,7 @@ VAST(version='2.0', xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance', xsi:n
         Impression=vastUrlHelper.getVastEventUrl(point,vast,'impression')
         - var creatives = inLine.creatives
         include _creatives
+        - var extensions = inLine.extensions
         include _extensions
     if vast.wrapper
       - var wrapper = vast.wrapper;
@@ -24,4 +25,5 @@ VAST(version='2.0', xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance', xsi:n
         VASTAdTagURI=vastUrlHelper.getVastUrl(point, wrapper.innerVast )
         - var creatives = wrapper.creatives
         include _creatives
+        - var extensions = wrapper.extensions
         include _extensions

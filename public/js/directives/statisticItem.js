@@ -51,12 +51,15 @@ app.directive('ngStatisticItem', function ($compile, $timeout, $http) {
                     if(isFind){
                         lastItem = items[items.length-1];
                         html = '<span class="label label-danger">'+items.length+'</span>';
-                        html += '&nbsp;&nbsp;';
+                        html += '&nbsp;<span class="nowrap">';
                         if(lastItem){
-                            html += (new Date(lastItem.data.time)).format("yyyy-mm-dd HH:MM:ss");
+                            var date = new Date(lastItem.data.time);
+                            //html += date.format("yyyy-mm-dd HH:MM:ss ") + date.getMilliseconds();
+                            html += date.format("HH:MM:ss ") + date.getMilliseconds();
                         }else{
-                            html += "---- -- -- --:--:--";
+                            html += "--:--:--  ---";
                         }
+                        html += '<span>';
                         isFind = false;
                     }else{
                         html = "<span>---</span>";

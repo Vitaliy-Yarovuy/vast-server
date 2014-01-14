@@ -52,6 +52,7 @@ var exps = {
         res.header('Content-Type', 'application/xml');
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
         if (vast) {
             res.render('vast20/vast', {
                 point: point,
@@ -76,6 +77,21 @@ var exps = {
         vastStatistic.trackEvent(event_id, new vast20statistic.StatisticItem(req));
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+        res.send("tracked!!!");
+        emitUpdate(vastStatistic);
+    },
+
+    extensions_statistic: function (req, res) {
+        var point_id = req.params.id,
+            vast_id = req.params.vast_id,
+            event_id = req.params.event_id;
+
+        var vastStatistic = vast20statistic.VastStatistic.collections["statistic_" + vast_id];
+        vastStatistic.trackExtensionEvent(event_id, new vast20statistic.StatisticItem(req));
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
         res.send("tracked!!!");
         emitUpdate(vastStatistic);
     },
@@ -91,6 +107,7 @@ var exps = {
         vastStatistic.trackCreativeEvent(creative_id, event_id, new vast20statistic.StatisticItem(req));
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
         res.send("tracked!!!");
         emitUpdate(vastStatistic);
     },
@@ -105,6 +122,7 @@ var exps = {
         vastStatistic.trackCreativeClickEvent(creative_id, event_id, new vast20statistic.StatisticItem(req));
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
         res.send("tracked!!!");
         emitUpdate(vastStatistic);
     }

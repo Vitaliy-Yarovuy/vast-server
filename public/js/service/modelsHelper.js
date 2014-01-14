@@ -10,6 +10,7 @@ app.factory('modelsHelper',function ($rootScope, feathersClient){
         mediaFileClient = feathersClient.getClient("vast20/mediafile"),
         trackingEventsClient = feathersClient.getClient("vast20/trackingevents"),
         videoClicksClient = feathersClient.getClient("vast20/videoclicks"),
+        extensionsClient = feathersClient.getClient("vast20/extensions"),
         close;
 
     return {
@@ -44,6 +45,9 @@ app.factory('modelsHelper',function ($rootScope, feathersClient){
                 });
                 isUpdate = true;
             }
+            if(diff.extensions){
+                isUpdate = isUpdate || this.updateExtensions(diff.extensions, nowInLine.extensions);
+            }
             return isUpdate;
         },
         updateWrapper: function(diff, nowWrapper){
@@ -59,6 +63,9 @@ app.factory('modelsHelper',function ($rootScope, feathersClient){
                     console.log("wrapper update", wrapper);
                 });
                 isUpdate = true;
+            }
+            if(diff.extensions){
+                isUpdate = isUpdate || this.updateExtensions(diff.extensions, nowWrapper.extensions);
             }
             return isUpdate;
         },
@@ -115,6 +122,17 @@ app.factory('modelsHelper',function ($rootScope, feathersClient){
                 var trackingEvents = utils.restoreLink("TrackingEvents", nowTrackingEvents);
                 trackingEventsClient.update([trackingEvents.id,trackingEvents],function(err, trackingEvents){
                     console.log("trackingEvents update", trackingEvents);
+                });
+                isUpdate = true;
+            }
+            return isUpdate;
+        },
+        updateExtensions: function(diff, nowExtensions){
+            var isUpdate = false;
+            if(diff.settings){
+                var extensions = utils.restoreLink("Extensions", nowExtensions);
+                extensionsClient.update([extensions.id,extensions],function(err, extensions){
+                    console.log("trackingEvents update", extensions);
                 });
                 isUpdate = true;
             }

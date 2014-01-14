@@ -1,8 +1,11 @@
 Extensions
-  Extension( type="startTime") 00:00
-  Extension( type="skipTime") 00:07
-  Extension( type="skipTime2") 00:05
-  Extension( type="linkTxt") go to market
-  Extension( type="isClickable") 1
-  Extension( type="skipAd") google.com
-  Extension( type="addClick") google.com
+  each key  in ['startTime','skipTime','skipTime2']
+    if extensions.settings[key] != null
+      Extension( type=key)= timeHelper.secToHumanReadable(extensions.settings[key])
+  if extensions.settings.linkTxt != null
+    Extension( type="linkTxt")= extensions.settings.linkTxt || " "
+  if extensions.settings.isClickable != null
+    Extension( type="isClickable")= extensions.settings.isClickable ? 1 : 0
+  each key  in ['skipAd','addClick']
+    if extensions.settings[key]
+      Extension( type=key)= vastUrlHelper.getVastExtensionEventUrl(point,vast,key)

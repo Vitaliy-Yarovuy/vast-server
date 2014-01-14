@@ -42,6 +42,7 @@ app.configure(feathers.socketio());
 
 app.locals.mediaFileHelper = require('./helpers/mediafile').mediaFileHelper;
 app.locals.vastUrlHelper = require('./helpers/vastUrl').vastUrlHelper;
+app.locals.timeHelper = require('./helpers/time').timeHelper;
 
 // for feathers services add clear method
 _.extend(app, {
@@ -70,6 +71,7 @@ app.get('/point/:id', routes.point.index);
 app.get('/point/:id/vast/:vast_id/vast.xml', routes.point.vast);
 
 app.get('/point/:id/statistic/:vast_id/event/:event_id', routes.point.vast_statistic);
+app.get('/point/:id/statistic/:vast_id/extension-event/:event_id', routes.point.extensions_statistic);
 app.get('/point/:id/statistic/:vast_id/creative/:creative_id/tracking_event/:event_id', routes.point.tracking_statistic);
 app.get('/point/:id/statistic/:vast_id/creative/:creative_id/click_event/:event_id', routes.point.click_statistic);
 

@@ -1,21 +1,16 @@
 'use strict';
 
-app.factory('scopeHelper',function ($rootScope){
+app.factory('scopeHelper',function ($parse){
     return {
         setData: function(scope, path, value, isSilent) {
-            var key,
-                pathEls = path.split("."),
-                element = scope;
-            while (pathEls.length > 1 && element) {
-                element = element[pathEls.shift()];
+            var run = function(){
+                $parse(path).assign(scope,value);
+            };
+            if(isSilent){
+                run();
+            } else {
+                scope.$apply(run);
             }
-            while (pathEls.length > 1) {
-                key = pathEls.shift();
-                element[key] = {};
-                element = element[key];
-            }
-            element[pathEls.shift()] = value;
-            isSilent || scope.$apply();
         }
     };
 });
