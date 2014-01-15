@@ -6,7 +6,9 @@ var mediaFileHelper = require('../helpers/mediafile').mediaFileHelper;
 var path = require('path');
 var services = require('../services')
 var _ = require('lodash');
+var testPointService = require('../services/testPointService').testPointService;
 var app;
+var listenedItems = {};
 
 video.findAllVideo(path.join(__dirname, '../public/video/'));
 
@@ -15,13 +17,32 @@ function emitUpdate(vastStatistic) {
     service.emit("updated",vastStatistic);
 }
 
-function createUpdateListenersForStatistic(vastStatistic){
-
+function createUpdateListenersForStatistic(testPointItem){
+    if(listenedItems[testPointItem.id]){
+        return ;
+    }
+    listenedItems[testPointItem.id] = testPointItem;
+    var ids = testPointItem.getVast().getAllLinkedId(),
+        update = _.debounce(function(){
+            testPointItem.updateStatisticModel();
+            ids = testPointItem.getVast().getAllLinkedId();
+            emitUpdate(testPointItem.getStatistic());
+        },100);
+    console.log(ids);
+    _.forEach(ids,function(keys, className){
+        var service = app.lookup('/vast20/'+className.toLowerCase());
+        service.on('updated', function(model) {
+            keys.indexOf(model.id) !== -1 && update();
+        });
+    });
 }
 
 var exps = {
     index: function (req, res) {
         var id = req.params.id;
+        testPointService.get(id,function(err, testPoint){
+            _.forEach(testPoint.items,createUpdateListenersForStatistic);
+        });
         res.render('point/index', {
             id: id,
             title: 'test point "' + id + '" ',

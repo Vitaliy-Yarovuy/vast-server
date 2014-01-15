@@ -1,4 +1,5 @@
 var _ = require("lodash");
+var utils = require("../utils/utils");
 
 
 function getNextId(prefix){
@@ -47,6 +48,38 @@ BaseModel.prototype.toJSON = function(){
     });
     return obj;
 };
+
+BaseModel.prototype.getAllLinkedId = function( links){
+    var links = links || {},
+        constructor = this.constructor;
+    if(constructor.links){
+        constructor.links.forEach(function(key){
+            var link = this[key];
+            var items = [];
+            if(link){
+                if( link instanceof Array ){
+                    items = items.concat( link.map(function(item){
+                        return BaseModel.collections[item];
+                    }));
+                }else{
+                    items.push(BaseModel.collections[link]);
+                }
+            }
+            items.forEach(function(item){
+                var key = utils.className(item.constructor,"BaseModel");
+                if(links[key]){
+                    links[key].push(item.id);
+                } else {
+                    links[key] = [item.id];
+                }
+                item = item.getAllLinkedId(links);
+            });
+        },this);
+    }
+    return links;
+};
+
+
 
 BaseModel.links = [];
 BaseModel.collections = {};

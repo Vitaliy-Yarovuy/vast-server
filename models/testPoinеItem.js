@@ -26,6 +26,14 @@ TestPointItem.prototype.setVast = function(vast){
     this.statistic = statistic.getId();
 };
 
+TestPointItem.prototype.getVast = function(){
+    return this.vast && vast20.Vast.collections[this.vast];
+};
+
+TestPointItem.prototype.getStatistic = function(){
+    return this.statistic && vast20statistic.VastStatistic.collections[this.statistic];
+};
+
 TestPointItem.prototype.updateStatisticModel = function(){
     var statistic = vast20statistic.VastStatistic.collections[this.statistic];
     statistic.updatePoints();
