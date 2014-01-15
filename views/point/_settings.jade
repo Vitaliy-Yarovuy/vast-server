@@ -1,12 +1,12 @@
 div(ng-controller='PointSettingsCtrl')
   h2 settings
   ul.nav.nav-tabs
-    li(ng-repeat="(vastKey,vast) in point.vasts", class="{{$index==0?'active':''}}")
-      a(href="#settings_{{vastKey}}", data-toggle="tab") {{vastKey}}
+    li(ng-repeat="(itemKey,item) in point.items", class="{{$index==0?'active':''}}")
+      a(href="#settings_{{itemKey}}", data-toggle="tab") {{itemKey}}
   .tab-content
-    div(ng-repeat="(vastKey,vast) in point.vasts", id="settings_{{vastKey}}",class="tab-pane {{$index==0?'active':''}}")
+    div(ng-repeat="(itemKey,item) in point.items", id="settings_{{itemKey}}",class="tab-pane {{$index==0?'active':''}}")
       br
-      fieldset
+      fieldset(ng-repeat="vast in [item.vast]")
         legend
           | VAST:
           button.btn.btn-xs.btn-danger.pos-a.tr-5(disabled=true) remove
@@ -52,7 +52,7 @@ div(ng-controller='PointSettingsCtrl')
               .form-group
                 label(for="inner_Vast") inner Vast
                 select.form-control.input-sm#inner_Vast( ng-model="vast.wrapper.innerVast")
-                  option(ng-repeat="(key,item) in point.vasts | excludeItems:'key':vastKey", value="{{item.id}}") {{key}}
+                  option(ng-repeat="(key,item) in point.items | excludeItems:'key':itemKey", value="{{item.vast.id}}") {{key}}
           include _settings_extensions
           include _settings_creatives
 

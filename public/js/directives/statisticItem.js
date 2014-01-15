@@ -5,15 +5,15 @@ app.directive('ngStatisticItem', function ($compile, $timeout, $http) {
     function getWatchString(type,data){
         if(type=="vast"){
             var event = data[1];
-            return "vast.points." + event;
+            return "item.statistic.points." + event;
         } else if(type=="extensions"){
             var event = data[1];
-            return "vast.extensionPoints." + event;
+            return "item.statistic.extensionPoints." + event;
         } else if(type=="creative"){
             var creativeKey = _.keys(data[0].creatives)[data[1]],
                 points = data[3] || "trackingPoints",
                 event = data[2];
-            return "vast.creatives." + creativeKey + "." +  points + "." +  event;
+            return "item.statistic.creatives." + creativeKey + "." +  points + "." +  event;
         }
     }
 

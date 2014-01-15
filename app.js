@@ -54,14 +54,11 @@ app.use('/testpoints', services.testPointService);
 console.log('create service on url' ,'/testpoints');
 
 _.each(vast20,function(Model,key){
-    if(key != "BaseModel"){
-        app.use('/vast20/'+key.toLowerCase(), services.serviceFactory.build(Model));
-        console.log('create service on url' ,'/vast20/'+key.toLowerCase());
-    }
+    app.use('/vast20/'+key.toLowerCase(), services.serviceFactory.build(Model));
+    console.log('create service on url' ,'/vast20/'+key.toLowerCase());
 });
 app.use('/vast20statistic', services.vast20StatisticService);
 console.log('create service on url' ,'/vast20statistic ');
-
 
 
 

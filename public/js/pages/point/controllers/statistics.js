@@ -1,30 +1,30 @@
 app.controller('PointStatisticsCtrl',function($scope, $rootScope, feathersClient ) {
 
-    $scope.getEventsName = function(vastStatistics){
+    $scope.getEventsName = function(items){
         var events = [];
-        _.each(vastStatistics, function(vast){
-            Object.keys(vast.points).forEach(function(key){
+        _.each(items, function(item){
+            Object.keys(item.statistic.points).forEach(function(key){
                 events.indexOf(key) == -1 && events.push(key);
             });
         });
         return events;
     };
 
-    $scope.getExtensionsEventsName = function(vastStatistics){
+    $scope.getExtensionsEventsName = function(items){
         var events = [];
-        _.each(vastStatistics, function(vast){
-            Object.keys(vast.extensionPoints).forEach(function(key){
+        _.each(items, function(item){
+            Object.keys(item.statistic.extensionPoints).forEach(function(key){
                 events.indexOf(key) == -1 && events.push(key);
             });
         });
         return events;
     };
 
-    $scope.getCreativeEventsName = function(vastStatistics,index, points){
+    $scope.getCreativeEventsName = function(items,index, points){
         points = points || "trackingPoints";
         var events = [];
-        _.each(vastStatistics, function(vast){
-            var creative = _.values(vast.creatives)[index];
+        _.each(items, function(item){
+            var creative = _.values(item.statistic.creatives)[index];
             if(creative){
                 _.keys(creative[points]).forEach(function(key){
                     events.indexOf(key) == -1 && events.push(key);
@@ -48,20 +48,20 @@ app.controller('PointStatisticsCtrl',function($scope, $rootScope, feathersClient
         return (creative && creative[points][event]) ? creative[points][event].items: [];
     };
 
-    $scope.getVastCount = function(vastStatistics){
-        return vastStatistics?  Object.keys(vastStatistics).length + 1: 2;
+    $scope.getVastCount = function(items){
+        return items?  Object.keys(items).length + 1: 2;
     };
 
-    $scope.getCreativeCount = function(vastStatistics){
-        var maxCount = _.reduce(vastStatistics, function(count,vast){
-                return Math.max(count, Object.keys(vast.creatives).length);
+    $scope.getCreativeCount = function(items){
+        var maxCount = _.reduce(items, function(count,item){
+                return Math.max(count, Object.keys(item.statistic.creatives).length);
             },0);
         return _.range(maxCount);
     };
 
-    $scope.getMediaFilesCount = function(vastStatistics, index){
-        var maxCount = _.reduce(vastStatistics, function(count,vast){
-            var creative = _.keys(vast.creatives)[index],
+    $scope.getMediaFilesCount = function(items, index){
+        var maxCount = _.reduce(items, function(count,item){
+            var creative = _.keys(item.statistic.creatives)[index],
                 fCount = creative? _.keys(creative.mediaFiles).length : 0;
             return Math.max(count, fCount);
         },0);
@@ -80,19 +80,20 @@ app.controller('PointStatisticsCtrl',function($scope, $rootScope, feathersClient
 
     var vast20statisticClient = feathersClient.getClient("vast20statistic",{
         updated: function(vast20statistic){
-            var statistics =  $rootScope.point.vastStatistics;
-            _.each(statistics, function(vastStatistic, key){
-                if(vastStatistic.id == vast20statistic.id){
-                    statistics[key] = vast20statistic;
+            var items =  $rootScope.point.items;
+            _.each(items, function(item, key){
+                if(item.statistic.id == vast20statistic.id){
+                    item.statistic = vast20statistic;
                 }
             });
+            console.log("update vast20statistic",vast20statistic);
         }
     });
 
     $scope.clear = function(){
-        var statistics =  $rootScope.point.vastStatistics;
-        _.each(statistics, function(vastStatistic, key){
-            vast20statisticClient.clear(vastStatistic.id, function(err, data){
+        var items =  $rootScope.point.items;
+        _.each(items, function(item, key){
+            vast20statisticClient.clear(item.statistic.id, function(err, data){
             });
         });
     };

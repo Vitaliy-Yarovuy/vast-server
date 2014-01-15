@@ -8,58 +8,58 @@ div(ng-controller='PointStatisticsCtrl')
     thead
       tr.active
         th event\vast file(sessions count)
-        th(ng-repeat="(vastKey,vast) in point.vastStatistics")
-          div {{vastKey}}({{vast.sessions.length}})
+        th(ng-repeat="(itemKey,item) in point.items")
+          div {{itemKey}}({{item.statistic.sessions.length}})
     tbody
       tr.active
-        th.text-center(colspan="{{getVastCount(point.vastStatistics)}}") ad events
-      tr(ng-repeat="event in getEventsName(point.vastStatistics)")
+        th.text-center(colspan="{{getVastCount(point.items)}}") ad events
+      tr(ng-repeat="event in getEventsName(point.items)")
         th {{event}}
-        td(ng-repeat="(vastKey,vast) in point.vastStatistics")
-          div(ng-statistic-item ="vast", ng-statistic-item-data="[vast,event]")
-
-    tbody
-      tr.active
-        th.text-center(colspan="{{getVastCount(point.vastStatistics)}}") extensions events
-      tr(ng-repeat="event in getExtensionsEventsName(point.vastStatistics)")
-        th {{event}}
-        td(ng-repeat="(vastKey,vast) in point.vastStatistics")
-          div(ng-statistic-item ="extensions", ng-statistic-item-data="[vast,event]")
+        td(ng-repeat="(itemKey,item) in point.items")
+          div(ng-statistic-item ="vast", ng-statistic-item-data="[item.statistic,event]")
 
     tbody
       tr.active
-        th.text-center(colspan="{{getVastCount(point.vastStatistics)}}") creatives
-
-    tbody(ng-repeat="creative_index in getCreativeCount(point.vastStatistics)")
-      tr.active
-        th.text-center(colspan="{{getVastCount(point.vastStatistics)}}") # {{creative_index}} creative
-      tr.active
-        th.text-center(colspan="{{getVastCount(point.vastStatistics)}}") tracking events
-      tr(ng-repeat="event in getCreativeEventsName(point.vastStatistics,creative_index)")
+        th.text-center(colspan="{{getVastCount(point.items)}}") extensions events
+      tr(ng-repeat="event in getExtensionsEventsName(point.items)")
         th {{event}}
-        td(ng-repeat="(vastKey,vast) in point.vastStatistics")
-          div(ng-statistic-item ="creative", ng-statistic-item-data="[vast,creative_index,event]")
+        td(ng-repeat="(itemKey,item) in point.items")
+          div(ng-statistic-item ="extensions", ng-statistic-item-data="[item.statistic,event]")
 
+    tbody
       tr.active
-        th.text-center(colspan="{{getVastCount(point.vastStatistics)}}") click events
-      tr(ng-repeat="event in getCreativeEventsName(point.vastStatistics,creative_index,'clickPoints')")
+        th.text-center(colspan="{{getVastCount(point.items)}}") creatives
+
+    tbody(ng-repeat="creative_index in getCreativeCount(point.items)")
+      tr.active
+        th.text-center(colspan="{{getVastCount(point.items)}}") # {{creative_index}} creative
+      tr.active
+        th.text-center(colspan="{{getVastCount(point.items)}}") tracking events
+      tr(ng-repeat="event in getCreativeEventsName(point.items,creative_index)")
         th {{event}}
-        td(ng-repeat="(vastKey,vast) in point.vastStatistics")
-          div(ng-statistic-item ="creative", ng-statistic-item-data="[vast,creative_index,event,'clickPoints']")
+        td(ng-repeat="(itemKey,item) in point.items")
+          div(ng-statistic-item ="creative", ng-statistic-item-data="[item.statistic,creative_index,event]")
 
       tr.active
-        th.text-center(colspan="{{getVastCount(point.vastStatistics)}}") MediaFiles
+        th.text-center(colspan="{{getVastCount(point.items)}}") click events
+      tr(ng-repeat="event in getCreativeEventsName(point.items,creative_index,'clickPoints')")
+        th {{event}}
+        td(ng-repeat="(itemKey,item) in point.items")
+          div(ng-statistic-item ="creative", ng-statistic-item-data="[item.statistic,creative_index,event,'clickPoints']")
 
-      tbody(ng-repeat="mediafile_index in getMediaFilesCount(vastStatistics,creative_index)")
+      tr.active
+        th.text-center(colspan="{{getVastCount(point.items)}}") MediaFiles
+
+      tbody(ng-repeat="mediafile_index in getMediaFilesCount(point.items, creative_index)")
         tr.active
-          th.text-center(colspan="{{getVastCount(point.vastStatistics)}}") # {{mediafile_index}} MediaFile events
+          th.text-center(colspan="{{getVastCount(point.items)}}") # {{mediafile_index}} MediaFile events
 
         //tr(ng-repeat="event in getCreativeEventsName(point.vastStatistics,creative_index,mediafile_index)")
           th {{event}}
-          td(ng-repeat="(vastKey,vast) in point.vastStatistics")
+          td(ng-repeat="(itemKey,vast) in point.vastStatistics")
             div(ng-if="getCreative(vast,creative_index)")
               .label.label-primary {{ getCreativeEventCount(vast,creative_index,event,'clickPoints')}}
               | &nbsp;&nbsp;
               span -- -- -- --:--:--
-            div(ng-if="!getCreative(vast,creative_index)")
+            div(ng-if="!getCreative(item.statistic,creative_index)")
               span ---

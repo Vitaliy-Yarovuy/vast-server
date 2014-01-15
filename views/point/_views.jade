@@ -1,19 +1,19 @@
 div(ng-controller='PointViewsCtrl')
   h2 views
   ul.nav.nav-tabs
-    li(ng-repeat="(vastKey,vast) in point.vasts", class="{{$index==0?'active':''}}")
-      a(href="#views_{{vastKey}}", data-toggle="tab") {{vastKey}}
+    li(ng-repeat="(itemKey,item) in point.items", class="{{$index==0?'active':''}}")
+      a(href="#views_{{itemKey}}", data-toggle="tab") {{itemKey}}
   .tab-content
-    div(ng-repeat="(vastKey,vast) in point.vasts", id="views_{{vastKey}}",class="tab-pane {{$index==0?'active':''}}")
+    div(ng-repeat="(itemKey,item) in point.items", id="views_{{itemKey}}",class="tab-pane {{$index==0?'active':''}}")
       br
       .input-group.input-group-sx
-        input(type="text", class="form-control", value="{{getVastLink(vast)}}", readonly=true)
+        input(type="text", class="form-control", value="{{getVastLink(item.vast)}}", readonly=true)
         span.input-group-btn
           span.btn.btn-default(ng-click="select($event)") select
-          a.btn.btn-default(type="button",href="{{getVastLink(vast)}}?no_track=true", target="_blank") open
+          a.btn.btn-default(type="button",href="{{getVastLink(item.vast)}}?no_track=true", target="_blank") open
       br
       //<?prettify lang=xml?>
-      //pre.code.prettyprint(ng-vast-xml-view="vast", ng-point="point")= '<?xml version="1.0"?>\n<nobanner></nobanner>'
-      .code-tree(ng-vast-xml-view="vast", ng-point="point",)
+      //pre.code.prettyprint(ng-vast-xml-view="item.vast", ng-point="point")= '<?xml version="1.0"?>\n<nobanner></nobanner>'
+      .code-tree(ng-vast-xml-view="item.vast", ng-point="point",)
 
       p hello world !!!

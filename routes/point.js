@@ -8,13 +8,15 @@ var services = require('../services')
 var _ = require('lodash');
 var app;
 
-
 video.findAllVideo(path.join(__dirname, '../public/video/'));
-
 
 function emitUpdate(vastStatistic) {
     var service = app.services["vast20statistic"];
     service.emit("updated",vastStatistic);
+}
+
+function createUpdateListenersForStatistic(vastStatistic){
+
 }
 
 var exps = {

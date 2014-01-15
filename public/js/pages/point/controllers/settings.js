@@ -31,9 +31,9 @@ app.controller('PointSettingsCtrl',function($scope, $rootScope,socket, videoHelp
 
     function updateByDiff(diff, nowPoint){
         diff = _.addKeyAfterDiff(diff,nowPoint, ["id"]);
-        if(diff.vasts){
-            _.each(diff.vasts,function(vast,key){
-                modelsHelper.updateVast(vast,nowPoint.vasts[key]);
+        if(diff.items){
+            _.each(diff.items,function(item,key){
+                item.vast && modelsHelper.updateVast(item.vast,nowPoint.items[key].vast);
             })
         }
     }

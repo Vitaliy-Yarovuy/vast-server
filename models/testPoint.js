@@ -1,5 +1,6 @@
 var vast20 = require("./vast20");
 var vast20statistic = require("./vast20statistic");
+var TestPointItem = require("./testPoinеItem").TestPointItem;
 var _ = require("lodash");
 
 function generateBaseCreative(isInline){
@@ -18,7 +19,6 @@ function generateBaseCreative(isInline){
     }
     return creative;
 }
-
 
 function generateBaseInLine(id){
     var vast = new vast20.Vast(null,{
@@ -49,21 +49,19 @@ function generateBaseWrapper(id){
 }
 
 
-
-
 function TestPoint(id){
     this.id = id;
-    this.vasts = {};
-    this.vastStatistics = {};
+    this.items = {};
     this.init();
 }
 
 TestPoint.prototype.init = function(){
-    this.vasts.inline_1 = generateBaseInLine('inline_1');
-    this.vasts.wrapper_1 = generateBaseWrapper('wrapper_1');
-    this.vasts.wrapper_2 = generateBaseWrapper('wrapper_2');
-    _.each(this.vasts,function(item, key){
-        this.vastStatistics[key] = new vast20statistic.VastStatistic(null, item);
+    _.forEach({
+        inline_1: generateBaseInLine('inline_1'),
+        wrapper_1: generateBaseWrapper('wrapper_1'),
+        wrapper_2: generateBaseWrapper('wrapper_2')
+    },function(value,key){
+        this.items[key] = new TestPointItem(null,value);
     },this);
 };
 
