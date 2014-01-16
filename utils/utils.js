@@ -1,4 +1,3 @@
-
 exports.extend = function(Child, Parent){
     //переносим статические методи
     for(var key in Parent){
@@ -20,7 +19,6 @@ exports.replaceProp = function(to, from){
         }
     }
 };
-
 
 var nameFromToStringRegex = /^function\s?([^\s(]*)/;
 function className(object, defaultName) {
