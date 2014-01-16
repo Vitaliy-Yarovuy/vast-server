@@ -2,7 +2,12 @@ extends layout
 
 block content
   h1 hello User
-  p enter id for separete test VAST 2.0 client or chose existing.
+  p
+   | enter id for separete test
+   a(href="/docs/VAST-2_0-FINAL.pdf", target="_blank") VAST 2.0
+   |  client or chose existing.
+
+
 
   div(ng-controller='PointListCtrl')
     .input-group
