@@ -14,9 +14,9 @@ html(ng-app="App")
           sup alpha
         .navbar-text
           = title
-    .container(style="margin-top:60px;")
+    #main_wrapper.container(style="padding-top:60px;")
       block content
-
+    include _footer
     script(src='/libs/jquery-2.0.3.js')
     script(src='/js/utils/jquery.fix.js')
     script(src='/libs/xmltree/xmltree.js')
