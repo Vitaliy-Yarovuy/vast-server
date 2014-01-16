@@ -71,15 +71,15 @@ app.get('/point/:id/statistic/:vast_id/event/:event_id', routes.point.vast_stati
 app.get('/point/:id/statistic/:vast_id/extension-event/:event_id', routes.point.extensions_statistic);
 app.get('/point/:id/statistic/:vast_id/creative/:creative_id/tracking_event/:event_id', routes.point.tracking_statistic);
 app.get('/point/:id/statistic/:vast_id/creative/:creative_id/click_event/:event_id', routes.point.click_statistic);
-
-app.get("/videos/", vidStreamer.settings({
+vidStreamer.settings({
     "mode": "development",
     "forceDownload": false,
     "random": false,
-    "rootFolder": path.join(__dirname, 'public/video-stream'),
+    "rootFolder": path.join(__dirname, '/public/video/'),
     "rootPath": "",
     "server": "VidStreamer.js/0.1.4"
-}));
+});
+app.get("/video-stream/", vidStreamer);
 
 // development only
 if ('development' == app.get('env')) {
