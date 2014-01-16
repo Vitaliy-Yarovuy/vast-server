@@ -65,7 +65,7 @@ var exps = {
         });
 
         var host = req.protocol + "://" + req.host;
-        if (req.app.settings.port != 80) {
+        if ( req.app.settings.env == 'development' && req.app.settings.port != 80) {
             host += ":" + req.app.settings.port;
         }
         host += "/";
