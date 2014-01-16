@@ -76,10 +76,10 @@ vidStreamer.settings({
     "forceDownload": false,
     "random": false,
     "rootFolder": path.join(__dirname, '/public/video/'),
-    "rootPath": "",
+    "rootPath": "video-stream/",
     "server": "VidStreamer.js/0.1.4"
 });
-app.get("/video-stream/", vidStreamer);
+app.get("/video-stream/:sec/:format/:file", vidStreamer);
 
 // development only
 if ('development' == app.get('env')) {
