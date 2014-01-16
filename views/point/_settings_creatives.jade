@@ -81,7 +81,7 @@ fieldset(ng-if="vast.inLine||vast.wrapper")
                       label
                         input(type="checkbox", ng-model="mediaFile.settings.scalable")
                         | scalable
-                    .btn-group.width-100(ng-select-video="mediaFile.video", ng-select-video-lists="videoLists")
+                    .btn-group.width-100.dropup(ng-select-video="mediaFile.video", ng-select-video-lists="videoLists")
                       button.btn.dropdown-toggle(data-toggle="dropdown")
                         span(ng-select-video-btn) select video
                         | &nbsp;
