@@ -13,6 +13,7 @@
     "lodash": "~2.4.1",
     "node-ffprobe": "~1.2.2",
     "vid-streamer": "git+https://github.com/Vitaliy-Yarovuy/vid-streamer.git",
-    "printf": "~0.1.2"
+    "printf": "~0.1.2",
+    "newrelic": "~1.2.0"
   }
 }

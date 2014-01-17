@@ -19,6 +19,10 @@ var port = process.env.PORT || 3000;
 var app = feathers();
 var routes = require('./routes')({app: app});
 
+
+//
+require('newrelic');
+
 // all environments
 app.set('port', port);
 app.set('views', path.join(__dirname, 'views'));
