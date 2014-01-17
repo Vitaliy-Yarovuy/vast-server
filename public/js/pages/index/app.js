@@ -1,10 +1,12 @@
 (function(global){
 
+    $.isLoading({ text: "Loading" });
     var app = angular.module('App',[]).controller('PointListCtrl',function($scope, socket, $timeout) {
         $scope.pointId = "";
         $scope.pointList = [];
         socket.emit("testpoints::find",{},function(err, list){
             $scope.pointList = list;
+            setTimeout( function(){ $.isLoading( "hide" ); }, 200);
         });
         socket.on("testpoints created",function(item){
             item.isNew = true;

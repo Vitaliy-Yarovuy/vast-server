@@ -1,5 +1,5 @@
 (function(global){
-
+    $.isLoading({ text: "Loading" });
     var app = angular.module('App',[]);
     app.run(function($rootScope, socket){
         $rootScope.point = {};
@@ -10,6 +10,7 @@
         socket.emit("testpoints::get", $rootScope.pointId,function(err, point){
             $rootScope.point = point;
             window.select_point = point;
+            setTimeout( function(){  $.isLoading( "hide" );  }, 400);
         });
 
         $rootScope.getVastLink = function(vast){
