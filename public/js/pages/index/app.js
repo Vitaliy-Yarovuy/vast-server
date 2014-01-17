@@ -1,6 +1,4 @@
 (function(global){
-
-    $.isLoading({ text: "Loading" });
     var app = angular.module('App',[]).controller('PointListCtrl',function($scope, socket, $timeout) {
         $scope.pointId = "";
         $scope.pointList = [];

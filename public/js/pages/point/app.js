@@ -1,5 +1,4 @@
 (function(global){
-    $.isLoading({ text: "Loading" });
     var app = angular.module('App',[]);
     app.run(function($rootScope, socket){
         $rootScope.point = {};
